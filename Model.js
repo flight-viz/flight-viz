@@ -6,20 +6,21 @@ var Model = {
 
 	airports: null,
 	matrix: null,
-	masterMatrix: null,
-	cal: null
+	cal: null,
 
 	getAirportMatrix: function(callback) {
 
 		// If Already Loaded Data, Don't Load Again
-		if (masterMatrix != null) {
-			callback.call(window, airports, matrix);
+		if (Model.matrix != null) {
+			callback.call(window, Model.airports, Model.matrix);
 			return;
 		}
 
+		// We Need to Load Two Files
+		// Don't Call Callback Unless They're Both In
 		var checkDoubleLoad = function() {
-			if (airports != null && matrix != null) {
-				callback.call(window, airports, matrix);
+			if (Model.airports != null && Model.matrix != null) {
+				callback.call(window, Model.airports, Model.matrix);
 			}
 		}
 
@@ -30,34 +31,30 @@ var Model = {
 		});
 
 		// Adjacency Matrix for All Airports
-		Model.loadFile('matrix', function(result) {
+		Model.loadFile('all', function(result) {
 			Model.matrix = result;
-			Model.masterMatrix = result;
 			checkDoubleLoad();
 		});
 
 	},
 
-	getWeekAirportMatrix: function(dateRangeStart, dateRangeEnd, callback) {
-
-
-
-	}
-
-	getTwoAirportsCalData: function(origin, destination, callback) {
-		Model.loadFile(['double', origin, destination], function(result) {
-			Model.cal = result;
-			callback.call(window, result);
-		});
+	getWeekAirportMatrix: function(weekNum, callback) {
+		Model.loadFile(["week", weekNum], callback);
 	},
 
-	getSingleAirportData: function(origin, callback) {
-		Model.loadFile(['single', origin], function(result) {
-			Model.cal = result;
-			callback.call(window, result);
-		});
-	},
+	getAllAirportsByDay: function(callback, origin, destination) {
 
+		fileargs = ["day"];
+		switch(arguments.length) {
+			case 1: fileargs.push("all"); break;
+			case 2: fileargs.push("single", origin); break;
+			case 3: fileargs.push("multi", origin, destination); break;
+			default: return;
+		}
+
+		Model.loadFile(fileargs, callback);
+
+	},
 
 	// Private-ish Functions
 	dataLoadError: function(xhr, ajaxOptions, thrownError) {
@@ -75,7 +72,7 @@ var Model = {
 
 		$.ajax({
 			type: "GET",
-			url: getAjaxURL(fileargs),
+			url: Model.getAjaxURL(fileargs),
 			dataType: 'json',
 			error: Model.dataLoadError,
 			success: successCallback
@@ -84,7 +81,7 @@ var Model = {
 	},
 
 	getAjaxURL: function(args) {
-		return DATADIR + YEAR + '_' + args.join('_') + FILETYPE
+		return this.DATADIR + this.YEAR + '_' + args.join('_') + this.FILETYPE
 	}
 
 }
