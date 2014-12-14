@@ -1,6 +1,6 @@
 body {
-  font: 10px sans-serif;
   shape-rendering: crispEdges;
+
 }
 
 .day {
@@ -13,8 +13,6 @@ body {
   stroke: #000;
   stroke-width: 2px;
 }
-
-
 
 
 .RdYlGn .under-zero{fill:#d9ef8b;}

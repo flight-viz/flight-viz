@@ -2,7 +2,11 @@ function clearSVG() {
   d3.select("svg").remove();
 }
 
-function generateCalendar(year) {
+function generateCalendar(yeardata) {
+  var yd = yeardata.split(",");
+  var year = yd[0];
+  var yearfile = yd[1];
+
 var width = 130,
     height = 960,
     cellSize = 17,
@@ -48,7 +52,7 @@ svg.selectAll(".month")
     .attr("d", monthPath)
     .attr("transform", "translate(" + cellHorizontalOffset + "," + cellVerticalOffset + ")");
 
-d3.csv("../testcal.csv", function(error, csv) {
+d3.csv(yearfile, function(error, csv) {
   var data = d3.nest()
     .key(function(d) { return d.FL_DATE; })
     .rollup(function(d) { return d[0].AVG_DELAY; })
