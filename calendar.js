@@ -16,7 +16,7 @@ var color = d3.scale.quantize()
     .domain([-.05, .05])
     .range(d3.range(11).map(function(d) { return "q" + d + "-11"; }));
 
-var svg = d3.select("body").selectAll("svg")
+var svg = d3.select("#calendar").selectAll("svg")
     .data(d3.range(+year, (+year + 1)))
   .enter().append("svg")
     .attr("width", width)
@@ -24,11 +24,6 @@ var svg = d3.select("body").selectAll("svg")
     .attr("class", "RdYlGn")
   .append("g")
     .attr("transform", "translate(5, 20)");
-
-svg.append("text")
-    .attr("transform", "translate(" + cellSize * 3.5 + "," + -10 + ")")
-    .style("text-anchor", "middle")
-    .text(function(d) { console.log(d);return d; });
 
 var rect = svg.selectAll(".day")
     .data(function(d) { return d3.time.days(new Date(d, 0, 1), new Date(d + 1, 0, 1)); })
@@ -49,10 +44,10 @@ svg.selectAll(".month")
     .attr("class", "month")
     .attr("d", monthPath);
 
-d3.csv("dji.csv", function(error, csv) {
+d3.csv("../testcal.csv", function(error, csv) {
   var data = d3.nest()
-    .key(function(d) { return d.Date; })
-    .rollup(function(d) { return (d[0].Close - d[0].Open) / d[0].Open; })
+    .key(function(d) { return d.FL_DATE; })
+    .rollup(function(d) { return d[0].AVG_DELAY; })
     .map(csv);
 
   rect.filter(function(d) { return d in data; })

@@ -1,0 +1,19 @@
+#map {
+    position: relative;
+    width:900px;
+    min-height:960px;
+    float: left;
+}
+
+#cal-selector {
+    float: left;
+    margin: auto;
+    text-align: center;
+}
+
+#calendar {
+    min-width: 130px;
+    min-height: 960px;
+    position: relative;
+    clear:left;
+}
