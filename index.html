@@ -1,7 +1,26 @@
 <!DOCTYPE html>
-<meta charset="utf-8">
-<link rel="stylesheet" type="text/css" href="calendar.css">
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="calendar.css">
+        <script src="http://d3js.org/d3.v3.min.js"></script>
+        <script src="calendar.js"></script>
 
-<body>
-<script src="http://d3js.org/d3.v3.min.js"></script>
-<script src="calendar.js"></script>
+    </head>
+
+
+    <body>
+
+
+        <select id="year" onchange="clearSVG();generateCalendar(this.value);">
+            <option value = "2010">2010</option>
+            <option value = "2011">2011</option>
+            <option value = "2012">2012</option>
+            <option value = "2013">2013</option>
+            <option value = "2014">2014</option>
+        </select>
+        <!--
+        <script>generateCalendar(2014)</script> -->
+
+    </body>
+</html>
