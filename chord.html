@@ -33,6 +33,8 @@ var colorMatrix = [
   [20, 30, 40, 0]  // D
 ];
 
+var labelText = ["A", "B", "C", "D"];
+
 // Init Chord Viz
 var chord = d3.layout.chord()
     .padding(.05)
@@ -70,12 +72,13 @@ svg.append("g").selectAll("path")
     .data(chord.groups)
   .enter().append("path")
     .style("fill", function(d) { return "#808080"; })
-    //.style("stroke", function(d) { return fill(d.index); })
+    .style("stroke", function(d) { return "#202020"; })
     .attr("d", arc)
     .on("mouseover", fade(.1))
     .on("mouseout", fade(1));
 
-/*var ticks = svg.append("g").selectAll("g")
+// Creates Text Elements Around the Circle
+var ticks = svg.append("g").selectAll("g")
     .data(chord.groups)
   .enter().append("g").selectAll("g")
     .data(groupTicks)
@@ -85,19 +88,13 @@ svg.append("g").selectAll("path")
           + "translate(" + outerRadius + ",0)";
     });
 
-ticks.append("line")
-    .attr("x1", 1)
-    .attr("y1", 0)
-    .attr("x2", 5)
-    .attr("y2", 0)
-    .style("stroke", "#000");
-
+// Fills the Text Elements Around the Circle
 ticks.append("text")
     .attr("x", 8)
     .attr("dy", ".35em")
     .attr("transform", function(d) { return d.angle > Math.PI ? "rotate(180)translate(-16)" : null; })
     .style("text-anchor", function(d) { return d.angle > Math.PI ? "end" : null; })
-    .text(function(d) { return d.label; });*/
+    .text(function(d) { return d.label; });
 
 // Inner Circles Only
 svg.append("g")
@@ -112,18 +109,15 @@ svg.append("g")
     })
     .style("opacity", 1);
 
-// Returns an array of tick angles and labels, given a group.
-/*function groupTicks(d) {
-  var k = (d.endAngle - d.startAngle) / d.value;
-  return d3.range(0, d.value, 10).map(function(v, i) {
-    return {
-      angle: v * k + d.startAngle,
-      label: i % 5 ? null : v / 10 + "0"
-    };
-  });
-}*/
+// Returns Tuples of Angles and Label Text Given an Index
+function groupTicks(d) {
+  return [{
+    angle: (d.startAngle+d.endAngle)/2,
+    label: labelText[d.index]
+  }]
+}
 
-// Returns an event handler for fading a given chord group.
+// Event Handler for MouseOver/MouseOut
 function fade(opacity) {
   return function(g, i) {
 
