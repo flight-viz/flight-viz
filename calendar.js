@@ -5,16 +5,19 @@ function clearSVG() {
 function generateCalendar(year) {
 var width = 130,
     height = 960,
-    cellSize = 17; // cell size
+    cellSize = 17,
+    cellHorizontalOffset = 5
+    cellVerticalOffset = 10;
+
 
 var day = d3.time.format("%w"),
     week = d3.time.format("%U"),
     percent = d3.format(".1%"),
     format = d3.time.format("%Y-%m-%d");
 
-var color = d3.scale.quantize()
-    .domain([-.05, .05])
-    .range(d3.range(11).map(function(d) { return "q" + d + "-11"; }));
+var color = d3.scale.threshold()
+    .domain([0, 5, 15, 30, 45, 60])
+    .range(["under-zero","zero-five","five-fifteen","fifteen-thirty","thirty-forty-five","forty-five-sixty","over-sixty"]);
 
 var svg = d3.select("#calendar").selectAll("svg")
     .data(d3.range(+year, (+year + 1)))
@@ -22,8 +25,7 @@ var svg = d3.select("#calendar").selectAll("svg")
     .attr("width", width)
     .attr("height", height)
     .attr("class", "RdYlGn")
-  .append("g")
-    .attr("transform", "translate(5, 20)");
+  .append("g");
 
 var rect = svg.selectAll(".day")
     .data(function(d) { return d3.time.days(new Date(d, 0, 1), new Date(d + 1, 0, 1)); })
@@ -31,6 +33,7 @@ var rect = svg.selectAll(".day")
     .attr("class", "day")
     .attr("width", cellSize)
     .attr("height", cellSize)
+    .attr("transform", "translate(" + cellHorizontalOffset + "," + cellVerticalOffset + ")")
     .attr("x", function(d) { return day(d) * cellSize; })
     .attr("y", function(d) { return week(d) * cellSize; })
     .datum(format);
@@ -42,7 +45,8 @@ svg.selectAll(".month")
     .data(function(d) { return d3.time.months(new Date(d, 0, 1), new Date(d + 1, 0, 1)); })
   .enter().append("path")
     .attr("class", "month")
-    .attr("d", monthPath);
+    .attr("d", monthPath)
+    .attr("transform", "translate(" + cellHorizontalOffset + "," + cellVerticalOffset + ")");
 
 d3.csv("../testcal.csv", function(error, csv) {
   var data = d3.nest()
@@ -51,11 +55,10 @@ d3.csv("../testcal.csv", function(error, csv) {
     .map(csv);
 
   rect.filter(function(d) { return d in data; })
-      .attr("class", function(d) { return "day " + color(data[d]); })
+      .attr("class", function(d) {return "day " + color(data[d]); })
     .select("title")
-      .text(function(d) { return d + ": " + percent(data[d]); });
+      .text(function(d) { return d + ": " + data[d]; });
 });
-
 
 
 function monthPath(t0) {

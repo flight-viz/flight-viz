@@ -12,6 +12,7 @@
 }
 
 #calendar {
+    margin: auto;
     min-width: 130px;
     min-height: 960px;
     position: relative;
