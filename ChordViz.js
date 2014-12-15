@@ -18,15 +18,15 @@ var ChordViz = {
 
 		// Init Chord Viz
 		var chord = d3.layout.chord()
-			.padding(.05)
+			.padding(.01)
 			.sortSubgroups(d3.descending)
 			.matrix(dataMatrix);
 
 		// Initial Params for Image Size
 		var width = 960,
-			height = 500,
+			height = 800,
 			innerRadius = Math.min(width, height) * .41,
-			outerRadius = innerRadius * 1.1;
+			outerRadius = innerRadius * 1.05;
 
 		// Sets Outer Bounds on Circle
 		var arc = d3.svg.arc()
@@ -34,9 +34,11 @@ var ChordViz = {
 			.outerRadius(outerRadius);
 
 		// Sets Color of the Chords Going Across Circle
+		var mMinMax = ChordViz.getMatrixAveragedMaxMin(colorMatrix);
+		console.log(mMinMax);
 		this.colorScale = d3.scale.linear()
-			.domain([-10,0,25,50])
-			.range(["#ff0000", "#ff0000", "#ffff00", "#00ff00"]);
+			.domain([0,10,20])
+			.range(["#00c000", "#c0c0c0", "#c00000"]);
 
 		// Build the Image Container
 		var svg = d3.select("#map").append("svg")
@@ -89,8 +91,9 @@ var ChordViz = {
 			.data(chord.chords)
 			.enter().append("path")
 			.attr("d", d3.svg.chord().radius(innerRadius))
-			.style("fill", function(d) { 
+			.style("fill", function(d) {
 				var avg = (colorMatrix[d.source.index][d.target.index] + colorMatrix[d.target.index][d.source.index])/2;
+				console.log(Math.round(avg), ChordViz.colorScale(avg), d);
 				return ChordViz.colorScale(avg);
 			})
 			.style("opacity", 1);
@@ -141,7 +144,8 @@ var ChordViz = {
 				var c = (ChordViz.colorMatrix[d.source.index][d.target.index] + ChordViz.colorMatrix[d.target.index][d.source.index])/2;
 				return ChordViz.colorScale(c);
 
-			});
+			})
+			.style("opacity", 1);
 
 	},
 
@@ -165,32 +169,30 @@ var ChordViz = {
 			else { return curr; }
 		}, -99999999)
 
+
+		var avg = averages.reduce(function (prev, curr, i, arr) {
+			return prev+curr
+		})/averages.length;
+
 		return {
 			max: max,
-			min: min
+			min: min,
+			avg: avg
 		}
 
 	}
 
 }
 
-var dataMatrix = [
-  // A B C D
-  [0, 500, 100, 100], // A
-  [0, 0, 100, 100], // B
-  [100, 100, 0, 100], // C
-  [100, 100, 100, 0]  // D
-];
-
-var colorMatrix = [
-  // A B C D
-  [0, 10, -10, 30], // A
-  [-10, 0, 20, 30], // B
-  [50, 40, 0, 30], // C
-  [20, 30, 40, 0]  // D
-];
-
-var labelText = ["A", "B", "C", "D"];
+var matrixCrop = function(m) {
+	var newm = [];
+	for (var i = 0; i < 100; i++) {
+		newm[i] = [];
+		for (var j = 0; j < 100; j++) {
+			newm[i][j] = m[i][j];
+		}
+	}
+	return newm;
+}
 
 
-ChordViz.draw(dataMatrix, colorMatrix, labelText);
