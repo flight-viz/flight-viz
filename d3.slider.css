@@ -2,8 +2,10 @@
     position: relative;
     font-family: Verdana,Arial,sans-serif;
     font-size: 1.1em;
-    border: 1px solid #aaaaaa;
     z-index: 2;
+    margin-left: 15px;
+
+    visibility: hidden;
 }
 
 .d3-slider-horizontal {
@@ -15,18 +17,29 @@
     height: 100px;
 }      
 
+
 .d3-slider-handle {
     position: absolute;
-    width: 1.2em;
-    height: 1.2em;
+    width: 150px;
+    height: 3px;
     border: 1px solid #d3d3d3;
     border-radius: 4px;
     background: #eee;
-    background: linear-gradient(to bottom, #eee 0%, #ddd 100%);
     z-index: 3;
 }
 
-.d3-slider-handle:hover {
+#cal-slider rect{
+    position: absolute;
+    left:-5px;
+    top: -7px;
+    width: 10px;
+    height: 15px;
+    border-radius: 4px;
+    background: #eee;
+    border: 1px solid #d3d3d3;
+}
+
+.d3-slider-handle rect:hover {
     border: 1px solid #999999;
 }
 
@@ -55,7 +68,6 @@
 
 .d3-slider-axis line {
     fill: none;
-    stroke: #aaa;
     shape-rendering: crispEdges;
 }
 

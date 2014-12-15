@@ -3,9 +3,12 @@ function clearSVG() {
 }
 
 function generateCalendar(yeardata) {
-  var yd = yeardata.split(",");
-  var year = yd[0];
-  var yearfile = yd[1];
+
+d3.select("#cal-slider").style("visibility", "visible")
+
+var yd = yeardata.split(",");
+var year = yd[0];
+var yearfile = yd[1];
 
 var width = 130,
     height = 960,

@@ -31,10 +31,13 @@
                     <option value = "2013">2013</option>
                     <option value = "2014,testcal.csv">2014</option>
                 </select>
-                <div id="calendar"></div>
+                <div id="calendar">
+                    <div id="cal-slider">
+                    </div>
+                </div>
             </div>
         </div>
 
-        <!-- <script>d3.slider().value(50).orientation("vertical");</script> -->
+        <script>d3.select("#cal-slider").call(d3.slider().value(50).orientation("vertical").step(2));</script>
     </body>
 </html>

@@ -38,17 +38,20 @@ d3.slider = function module() {
       value = value || scale.domain()[0]; 
 
       // DIV container
+
       var div = d3.select(this).classed("d3-slider d3-slider-" + orientation, true);
 
       var drag = d3.behavior.drag();
 
       // Slider handle
+
       var handle = div.append("a")
-          .classed("d3-slider-handle", true)
           .attr("xlink:href", "#")
+          .classed("d3-slider-handle", true)
           .on("click", stopPropagation)
           .call(drag);
 
+          handle.append("rect");
       // Horizontal slider
       if (orientation === "horizontal") {
 
