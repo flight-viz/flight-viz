@@ -13,7 +13,7 @@ var Controller = {
 	},
 
 	singleAirportSelect: function() {
-
+		
 	},
 
 	multiAirportSelect: function() {
