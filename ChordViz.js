@@ -11,8 +11,7 @@ var ChordViz = {
 	ringDefaultColor: "#a0a0a0",
 
 	// Interaction
-	singleSelectionMode: false,
-	currHover: -1,
+	currHover: null,
 	currSelected: null,
 
 	// D3 Components
@@ -228,9 +227,11 @@ var ChordViz = {
 		if (ChordViz.currSelected == i) {
 			// If The Clicked Element is Already Selected, Unselect
 			ChordViz.currSelected = null;
+			Controller.noAirportSelected();
 		} else {
-			// Otherwise, Make the Array out of the One Element
+			// Otherwise, Save that Element
 			ChordViz.currSelected = i;
+			Controller.singleAirportSelect(ChordViz.labels[i]);
 		}
 
 		ChordViz.transitionChords();
@@ -303,4 +304,4 @@ var colorMatrix = [
 var labelText = ["A", "B", "C", "D"];
 
 
-ChordViz.draw(dataMatrix, colorMatrix, labelText);
+//ChordViz.draw(dataMatrix, colorMatrix, labelText);

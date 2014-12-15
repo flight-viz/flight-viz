@@ -1,28 +1,53 @@
 var Controller = {
 
-	registeredVizs: [],
+	chordViz: null,
+	mapViz: null,
+	calendarViz: null,
 
-	register: function(viz) {
-		registeredVizs.push(viz);
-	},
+	init: function() {
 
-	sendMessage: function(msg) {
-		registeredVizs.map(function(viz) {
-			viz.receive(msg);
+		Model.initAirportsData(function(flightsMatrix, delayMatrix, airports) {
+
+			// Create the Chord Viz Here
+			ChordViz.draw(flightsMatrix, delayMatrix, airports);
+
+			// Create the Map Here
+			// Create the Calendar Here
+
 		})
+
 	},
 
-	singleAirportSelect: function() {
+	noAirportSelected: function() {
+		singleAirportSelect(null);
+	},
+
+	singleAirportSelect: function(airport) {
+
+		Model.getAirportByDay(airport, function(result) {
+
+			console.log(result);
+
+			// Update the Calendar
+
+		});
 		
 	},
 
-	multiAirportSelect: function() {
-
+	noWeekSelected: function() {
+		weekSelect(null);
 	},
 
-	weekSelect: function() {
+	weekSelect: function(weekNum) {
+
+		Model.getWeekAirportMatrix(weekNum, function(flightsMatrix, delayMatrix, airports) {
+			// Update the Chord
+			ChordViz.draw(flightsMatrix, delayMatrix, airports);
+			// Update the Map
+		})
 
 	}
 
-
 }
+
+Controller.init();

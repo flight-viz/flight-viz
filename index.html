@@ -5,13 +5,6 @@
         <link rel="stylesheet" type="text/css" href="calendar.css">
         <link rel="stylesheet" type="text/css" href="d3.slider.css">
         <link rel="stylesheet" type="text/css" href="stylesheet.css">
-        <script src="http://d3js.org/d3.v3.min.js"></script>
-        <script src="calendar.js"></script>
-        <script src="d3.slider.js"></script>
-
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-        <script src="Model.js"></script>
-
     </head>
 
 
@@ -21,7 +14,7 @@
         </header>
 
         <div id="viz-main">
-            <div id="map"><p>Map goes here</p></div>
+            <div id="map"></div>
 
             <div id="cal-selector">
                 <select id="year" onchange="clearSVG();generateCalendar(this.value);">
@@ -37,6 +30,16 @@
                 </div>
             </div>
         </div>
+
+        <script src="http://d3js.org/d3.v3.min.js"></script>
+        <script src="calendar.js"></script>
+        <script src="d3.slider.js"></script>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script src="Model.js"></script>
+        <script src="Controller.js"></script>
+        <script src="ChordViz.js"></script>
+
 
         <script>d3.select("#cal-slider").call(d3.slider().value(50).orientation("vertical").step(2));</script>
     </body>

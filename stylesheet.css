@@ -71,3 +71,7 @@ select {
     top: 15px;
     left: 0;
 }
+
+.chord path {
+  fill-opacity: .67;
+}
