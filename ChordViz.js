@@ -5,6 +5,16 @@ var ChordViz = {
 	colorMatrix: null,
 	labels: null,
 
+	// Config
+	selector: "#map",
+	ringSelectedColor: "#0000a0",
+	ringDefaultColor: "#a0a0a0",
+
+	// Interaction
+	singleSelectionMode: false,
+	currHover: -1,
+	currSelected: null,
+
 	// D3 Components
 	colorScale: null,
 	svg: null,
@@ -34,14 +44,14 @@ var ChordViz = {
 			.outerRadius(outerRadius);
 
 		// Sets Color of the Chords Going Across Circle
-		var mMinMax = ChordViz.getMatrixAveragedMaxMin(colorMatrix);
-		console.log(mMinMax);
+		/*var mMinMax = ChordViz.getMatrixAveragedMaxMin(colorMatrix);
+		console.log(mMinMax);*/
 		this.colorScale = d3.scale.linear()
 			.domain([0,10,20])
 			.range(["#00c000", "#c0c0c0", "#c00000"]);
 
 		// Build the Image Container
-		var svg = d3.select("#map").append("svg")
+		var svg = d3.select(this.selector).append("svg")
 			.attr("width", width)
 			.attr("height", height)
 			.append("g")
@@ -49,14 +59,17 @@ var ChordViz = {
 		this.svg = svg;
 
 		// Outer Circles Only
-		svg.append("g").selectAll("path")
+		svg.append("g")
+			.attr("class", "outer")
+			.selectAll("path")
 			.data(chord.groups)
 			.enter().append("path")
-			.style("fill", function(d) { return "#808080"; })
+			.style("fill", ChordViz.ringDefaultColor)
 			.style("stroke", function(d) { return "#202020"; })
 			.attr("d", arc)
 			.on("mouseover", ChordViz.mouseOverHandle)
-			.on("mouseout", ChordViz.mouseOutHandle);
+			.on("mouseout", ChordViz.mouseOutHandle)
+			.on("click", ChordViz.clickHandle);
 
 		var groupTicks = function(d) {
 			return [{
@@ -93,59 +106,134 @@ var ChordViz = {
 			.attr("d", d3.svg.chord().radius(innerRadius))
 			.style("fill", function(d) {
 				var avg = (colorMatrix[d.source.index][d.target.index] + colorMatrix[d.target.index][d.source.index])/2;
-				console.log(Math.round(avg), ChordViz.colorScale(avg), d);
 				return ChordViz.colorScale(avg);
 			})
 			.style("opacity", 1);
 
 	},
 
-	mouseOverHandle: function(g, i) {
+	transitionChords: function() {
 
-		// Fade Out Other Chords
-		ChordViz.svg.selectAll(".chord path")
-			.filter(function(d) { return d.source.index != i && d.target.index != i; })
+		// Change Color of Outer Ring
+		ChordViz.svg.selectAll(".outer path")
 			.transition()
-			.style("opacity", 0.1);
-		
-		// Change Color Based on Context
+			.style("fill", function(d) { 
+				return ChordViz.isItemActive(d.index) ? ChordViz.ringSelectedColor : ChordViz.ringDefaultColor
+			});
+
+		// Change Color and Opacity Based on Context
 		ChordViz.svg.selectAll(".chord path")
-			.filter(function(d) { return d.source.index == i || d.target.index == i; })
 			.transition()
 			.style("fill", function(d) { 
 
 				var c;
+				var c1 = ChordViz.colorMatrix[d.source.index][d.target.index];
+				var c2 = ChordViz.colorMatrix[d.target.index][d.source.index];
+				var avg = (c1 + c2) / 2;
 
-				if (i == d.source.index) {
-					c = ChordViz.colorMatrix[d.source.index][d.target.index];
-				} else if (i == d.target.index) {
-					c = ChordViz.colorMatrix[d.target.index][d.source.index];
+				// Context: Something Clicked, Something Hovered --> Average
+				if (ChordViz.currSelected != null && ChordViz.currHover != null) {
+					if (ChordViz.currSelected == ChordViz.currHover) {
+						switch(ChordViz.currHover) {
+							case d.source.index: c = c1; break;
+							case d.target.index: c = c2; break;
+							default: c = avg; break;
+						}
+					} else {
+						c = avg;
+					}
+
+				// Context: Nothing Clicked, Something Hovered --> Hovered Thing Color
+				} else if (ChordViz.currSelected == null && ChordViz.currHover != null) {
+					switch(ChordViz.currHover) {
+						case d.source.index: c = c1; break;
+						case d.target.index: c = c2; break;
+						default: c = avg; break;
+					}
+
+				// Context: Something Clicked, Nothing Hovered --> Clicked Thing Color
+				} else if (ChordViz.currSelected != null && ChordViz.currHover == null) {
+					switch(ChordViz.currSelected) {
+						case d.source.index: c = c1; break;
+						case d.target.index: c = c2; break;
+						default: c = avg; break;
+					}
+
+				// Context: Nothing Clicked, Nothing Hovered --> Average
+				} else {
+					c = avg;
 				}
 
 				return ChordViz.colorScale(c);
+			})
+			.style("opacity", function(d) {
+				return ChordViz.isChordActive(d) ? 1 : 0;
 			});
+
+	},
+
+	mouseOverHandle: function(g, i) {
+
+		ChordViz.currHover = i;
+		ChordViz.transitionChords();
 
 	},
 
 	mouseOutHandle: function(g, i) {
 
-		// Fade Other Chords Back In
-		ChordViz.svg.selectAll(".chord path")
-			.filter(function(d) { return d.source.index != i && d.target.index != i; })
-			.transition()
-			.style("opacity", 1);
+		ChordViz.currHover = null;
+		ChordViz.transitionChords();
 
-		// Change Color Back to Original Average
-		ChordViz.svg.selectAll(".chord path")
-			.filter(function(d) { return d.source.index == i || d.target.index == i; })
-			.transition()
-			.style("fill", function(d) { 
+	},
 
-				var c = (ChordViz.colorMatrix[d.source.index][d.target.index] + ChordViz.colorMatrix[d.target.index][d.source.index])/2;
-				return ChordViz.colorScale(c);
+	isItemActive: function(index) {
 
-			})
-			.style("opacity", 1);
+		return ChordViz.currSelected == index || ChordViz.currHover == index;
+
+	},
+
+	isChordActive: function(d) {
+
+		// d: Current Chord Element in Loop
+		// i: Index of Current Outer Element Being Hovered
+		// i is -1 if Hover Out
+
+		var i = ChordViz.currHover;
+			
+		if (ChordViz.currSelected != null) {
+
+			var c = ChordViz.currSelected;
+
+			// One Thing Selected, so Any Chord That
+			// Starts at Hover, Ends at Selected
+			// Ends at Hover, Starts at Selected
+			// Starts/Ends on Selected if Nothing is Hovered or Hovering Selection
+
+			return (d.source.index == i && d.target.index == c) ||
+				(d.target.index == i && d.source.index == c) ||
+				((i == null || i == c) && (d.target.index == c || d.source.index == c))
+
+		} else {
+
+			// Nothing Selected, so Any Chord that Starts/Ends at Hover
+			// If Mouseout, Everything is Active
+			return i == null || d.source.index == i || d.target.index == i;
+
+		}
+
+	},
+
+	clickHandle: function(g, i) {
+
+		if (ChordViz.currSelected == i) {
+			// If The Clicked Element is Already Selected, Unselect
+			ChordViz.currSelected = null;
+		} else {
+			// Otherwise, Make the Array out of the One Element
+			ChordViz.currSelected = i;
+		}
+
+		ChordViz.transitionChords();
 
 	},
 
@@ -196,3 +284,23 @@ var matrixCrop = function(m) {
 }
 
 
+var dataMatrix = [
+  // A B C D
+  [0, 5, 10, 10], // A
+  [0, 0, 20, 10], // B
+  [25, 10, 0, 10], // C
+  [10, 30, 10, 0]  // D
+];
+
+var colorMatrix = [
+  // A B C D
+  [0,    4, -10,  12], // A
+  [-10,  0,  20,  12], // B
+  [20,   2,   0,  12], // C
+  [8,   12,  40,   0]  // D
+];
+
+var labelText = ["A", "B", "C", "D"];
+
+
+ChordViz.draw(dataMatrix, colorMatrix, labelText);
