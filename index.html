@@ -4,6 +4,7 @@
         <meta charset="utf-8">
         <link rel="stylesheet" type="text/css" href="calendar.css">
         <link rel="stylesheet" type="text/css" href="d3.slider.css">
+        <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,700' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" type="text/css" href="stylesheet.css">
     </head>
 
@@ -11,6 +12,10 @@
     <body>
         <header>
             <h1>Airline On-Time Data</h1>
+
+            <form id="airport-search">
+                <input type="text" id="airport-search-text" placeholder="Find an Airport Here" />
+            </form>
         </header>
 
         <div id="viz-main">
@@ -34,7 +39,6 @@
         <script src="http://d3js.org/d3.v3.min.js"></script>
         <script src="calendar.js"></script>
         <script src="d3.slider.js"></script>
-
         <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
         <script src="Model.js"></script>
         <script src="Controller.js"></script>

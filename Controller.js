@@ -16,6 +16,11 @@ var Controller = {
 
 		})
 
+		// Autocomplete
+		Model.getGenericAirportData(function() {
+			//$('#airport-search-text').autocomplete();
+		})
+
 	},
 
 	noAirportSelected: function() {

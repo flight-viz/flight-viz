@@ -60,6 +60,12 @@ var Model = {
 
 	},
 
+	getGenericAirportData: function(callback) {
+
+
+
+	},
+
 	// Internal Use Functions
 	dataLoadError: function(xhr, ajaxOptions, thrownError) {
 		console.log(xhr, ajaxOptions, thrownError);

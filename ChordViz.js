@@ -20,10 +20,23 @@ var ChordViz = {
 
 	draw: function(dataMatrix, colorMatrix, labels) {
 
-		// Save for Later, I Guess?
+		// Save for Later
 		this.dataMatrix = dataMatrix;
 		this.colorMatrix = colorMatrix;
 		this.labels = labels;
+
+		// Experimental: Removes Weight from the Chord
+		/*var simpleMatrix = [];
+		for (var i = 0; i < 100; i++) {
+			simpleMatrix[i] = [];
+			for (var j = 0; j < 100; j++) {
+				if (dataMatrix[i][j] != 0) {
+					simpleMatrix[i][j] = 1;
+				} else {
+					simpleMatrix[i][j] = 0;
+				}
+			}
+		}*/
 
 		// Init Chord Viz
 		var chord = d3.layout.chord()
