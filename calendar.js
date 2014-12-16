@@ -20,6 +20,8 @@ var Calendar = {
 
     generateCalendar: function(yeardata) {
 
+        Calendar.clearSVG();
+
         var yd = yeardata.split(",");
         var year = yd[0];
         var yearfile = yd[1];
