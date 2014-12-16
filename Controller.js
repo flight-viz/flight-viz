@@ -1,5 +1,7 @@
 var Controller = {
 
+	liveAirportCode: null,
+
 	init: function() {
 
 		Model.initAirportsData(function(flightsMatrix, delayMatrix, airports, airportData, cal) {
@@ -28,30 +30,34 @@ var Controller = {
 	},
 
 	noAirportSelected: function() {
-		singleAirportSelect(null);
+		Controller.singleAirportSelect('all');
 	},
 
 	singleAirportSelect: function(airport) {
 
+		this.liveAirportCode = airport;
+
 		Model.getAirportByDay(airport, function(result) {
+
+			var url = Model.YEAR + ", data/"+ Model.YEAR + "/" + Model.YEAR +"_day_" + airport + ".json";
 
 			// Update the Calendar
 			Calendar.clearSVG();
-			Calendar.generateCalendar(Model.YEAR + ", data/"+ Model.YEAR + "/" + Model.YEAR +"_day_" + airport + ".json");
+			Calendar.generateCalendar(url);
 
 		});
 		
 	},
 
 	noWeekSelected: function() {
-		weekSelect(null);
+		Controller.weekSelect(null);
 	},
 
 	weekSelect: function(weekNum) {
 
 		Model.getWeekAirportMatrix(weekNum, function(flightsMatrix, delayMatrix) {
 			// Update the Chord
-			ChordViz.draw(flightsMatrix, delayMatrix, Model.airports);
+			ChordViz.draw(flightsMatrix, delayMatrix, Model.airports, Controller.liveAirportCode);
 
 		})
 

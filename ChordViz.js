@@ -20,7 +20,7 @@ var ChordViz = {
 	svg: null,
 	tip: null,
 
-	draw: function(dataMatrix, colorMatrix, labels) {
+	draw: function(dataMatrix, colorMatrix, labels, initSelectedCode) {
 
 		// Destroy The Old One
 		d3.select(this.selector).selectAll("svg").remove();
@@ -31,8 +31,14 @@ var ChordViz = {
 		this.colorMatrix = colorMatrix;
 		this.labels = labels;
 
+		// Reset Attributes
 		currHover = null;
 		currSelected = null;
+
+		// Then Set Them if Given
+		if (initSelectedCode != undefined) {
+			currSelected = labels.indexOf(initSelectedCode);
+		}
 
 		// Experimental: Removes Weight from the Chord
 		/*var simpleMatrix = [];
@@ -151,6 +157,8 @@ var ChordViz = {
 				return ChordViz.colorScale(avg);
 			})
 			.style("opacity", 1);
+
+		ChordViz.transitionChords();
 
 	},
 
