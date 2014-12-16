@@ -4,7 +4,7 @@ var Controller = {
 
 	init: function() {
 
-		Model.initAirportsData(function(flightsMatrix, delayMatrix, airports, airportData, cal) {
+		Model.initAirportsData(function(flightsMatrix, delayMatrix, airports, airportData, cal,mapData) {
 
 			Model.YEAR = 2004;
 
@@ -14,6 +14,7 @@ var Controller = {
 			// Create the Calendar Here
 			Calendar.generateCalendar(Model.YEAR + ", data/"+ Model.YEAR + "/" + Model.YEAR + "_day_all.json");
 
+			MapViz.draw(flightsMatrix,airports,airportData,mapData);
 			// Autocomplete
 			$(document).ready(function() {
 				$('#airport-search-text').autocomplete({
