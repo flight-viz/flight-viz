@@ -10,7 +10,9 @@ var Controller = {
 			ChordViz.draw(flightsMatrix, delayMatrix, airports);
 
 			// Create the Calendar Here
+
 			Calendar.generateCalendar(Model.YEAR + ", data/"+ Model.YEAR + "/" + Model.YEAR + "_day_all.json");
+			Calendar.hideSlider();
 
 			MapViz.draw(flightsMatrix,airports,airportData,mapData);
 			// Autocomplete
@@ -49,7 +51,9 @@ var Controller = {
 	},
 
 	noWeekSelected: function() {
+		$("#year-button").css("background-color","#bababa");
 		Controller.weekSelect(null);
+		$("#cal-slider").css("visibility", "hidden");
 	},
 
 	weekSelect: function(weekNum) {

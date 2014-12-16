@@ -53,7 +53,10 @@ d3.slider = function module() {
           .on("click", stopPropagation)
           .call(drag);
 
-          handle.append("rect");
+          handle.append("rect")
+          .on("click", function() {
+            console.log("show handle");
+          });
       // Horizontal slider
       if (orientation === "horizontal") {
 

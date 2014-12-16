@@ -35,9 +35,20 @@ select {
     width: 50%;
     line-height: 1;
     border: 1px solid #ccc;
-    border-radius: 0;
+    float: center;
 }
 
+button {
+    clear: center;
+    background: #f8f8f8;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font:14px sans-serif;
+    margin-left: 5px;
+    margin-top: 10px;
+    height: 25px;
+ 
+}
 
 
 #calendar {

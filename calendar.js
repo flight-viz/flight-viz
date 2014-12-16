@@ -6,9 +6,19 @@ var Calendar = {
 
     },
 
-    generateCalendar: function(yeardata) {
+    hideSlider: function() {
 
-        d3.select("#cal-slider").style("visibility", "visible")
+        d3.select("#cal-slider").style("visibility", "hidden");
+        $("#year-button").css("background-color", "#bababa");
+    },
+
+    showSlider: function() {
+
+        d3.select("#cal-slider").style("visibility", "visible");
+        $("#year-button").css("background-color", "#f8f8f8");
+    },
+
+    generateCalendar: function(yeardata) {
 
         var yd = yeardata.split(",");
         var year = yd[0];

@@ -46,7 +46,8 @@
             <option value = "2007, data/2007/2007_day_all.json">2007</option>
             <option value = "2008, data/2008/2008_day_all.json">2008</option>
         </select>
-        <div id="calendar">
+        <button type="button" id="year-button" onclick="Controller.noWeekSelected();">Whole Year</button>
+        <div id="calendar" onclick = "Calendar.showSlider();">
             <div id="cal-slider"></div>
         </div>
     </div>
