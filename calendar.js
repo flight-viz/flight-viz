@@ -55,29 +55,18 @@ svg.selectAll(".month")
     .attr("d", monthPath)
     .attr("transform", "translate(" + cellHorizontalOffset + "," + cellVerticalOffset + ")");
 
-/* DEPRECATED CSV PARSING */
-
-// d3.csv(yearfile, function(error, csv) {
-//   var data = d3.nest()
-//     .key(function(d) { return d.FL_DATE; })
-//     .rollup(function(d) { return d[0].AVG_DELAY; })
-//     .map(csv);
-
-//     console.log(data);
-//   rect.filter(function(d) { return d in data; })
-//       .attr("class", function(d) {return "day " + color(data[d]); })
-//     .select("title")
-//       .text(function(d) { return d + ": " + data[d]; });
-// });
-
-d3.json(yearfile, function(error, json) {
-  var data = json["avg_delay_by_day"];
+d3.csv(yearfile, function(error, csv) {
+  var data = d3.nest()
+    .key(function(d) { return d.FL_DATE; })
+    .rollup(function(d) { return d[0].AVG_DELAY; })
+    .map(csv);
 
   rect.filter(function(d) { return d in data; })
       .attr("class", function(d) {return "day " + color(data[d]); })
     .select("title")
-      .text(function(d) { return d + ": " + +data[d].toFixed(2); });
+      .text(function(d) { return d + ": " + data[d]; });
 });
+
 
 function monthPath(t0) {
   var t1 = new Date(t0.getFullYear(), t0.getMonth() + 1, 0),

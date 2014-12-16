@@ -2,27 +2,10 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,700' rel='stylesheet' type='text/css'>
-        
         <link rel="stylesheet" type="text/css" href="calendar.css">
         <link rel="stylesheet" type="text/css" href="d3.slider.css">
+        <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,700' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" type="text/css" href="stylesheet.css">
-        
-        <script src="calendar.js"></script>
-        <script src="d3.slider.js"></script>
-        <script src="mapviz.js"></script>
-
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-        
-        <script src="Model.js"></script>
-        <script src="Controller.js"></script>
-        <script src="ChordViz.js"></script>
-
-        <script src="http://d3js.org/d3.v3.min.js"></script>
-        <script src="http://d3js.org/queue.v1.min.js"></script>
-        <script src="http://d3js.org/topojson.v1.min.js"></script>
-
-
     </head>
 
 
@@ -33,7 +16,6 @@
             <form id="airport-search">
                 <input type="text" id="airport-search-text" placeholder="Find an Airport Here" />
             </form>
-
         </header>
 
         <div id="viz-main">
@@ -44,11 +26,10 @@
             <div id="cal-selector">
                 <select id="year" onchange="clearSVG();generateCalendar(this.value);">
                     <option value = "2010">2010</option>
-                    <option value = "2008, data/2008/2008_day_all.json">2008</option>
                     <option value = "2011">2011</option>
                     <option value = "2012">2012</option>
                     <option value = "2013">2013</option>
-                    <option value = "2014,testcal.csv">2014 (not real data)</option>
+                    <option value = "2014,testcal.csv">2014</option>
                 </select>
                 <div id="calendar">
                     <div id="cal-slider">
@@ -57,16 +38,18 @@
             </div>
         </div>
 
+        <script src="http://d3js.org/d3.v3.min.js"></script>
+        <script src="mapviz.js"></script>
+        <script src="calendar.js"></script>
+        <script src="d3.slider.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script src="Model.js"></script>
+        <script src="Controller.js"></script>
+        <script src="ChordViz.js"></script>
 
-        <script>
-        var weekSelected;
-        var thing = d3.slider().value(50).orientation("vertical").step(1.923).on("slide", function(evt, value, ws) {
-            weekSelected = ws;
-            console.log(weekSelected);
-        });
-        d3.select("#cal-slider").call(thing);
-        </script>
-
-
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://d3js.org/queue.v1.min.js"></script>
+<script src="http://d3js.org/topojson.v1.min.js"></script>
+        <script>d3.select("#cal-slider").call(d3.slider().value(50).orientation("vertical").step(2));</script>
     </body>
 </html>

@@ -14,10 +14,6 @@
   stroke-width: 2px;
 }
 
-svg g *{
-    z-index: 1000;
-}
-
 
 .RdYlGn .under-zero{fill:#d9ef8b;}
 .RdYlGn .zero-five{fill:#ffffbf;}

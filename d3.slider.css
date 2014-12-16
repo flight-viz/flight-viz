@@ -3,6 +3,8 @@
     font-family: Verdana,Arial,sans-serif;
     font-size: 1.1em;
     z-index: 2;
+    margin-left: 15px;
+
     visibility: hidden;
 }
 
@@ -18,27 +20,33 @@
 
 .d3-slider-handle {
     position: absolute;
-    left: 10px;
     width: 150px;
     height: 3px;
-    border: 1px solid #999;
+    border: 1px solid #d3d3d3;
     border-radius: 4px;
     background: #eee;
     z-index: 3;
-    overflow: visible;
 }
 
-.d3-slider-handle rect{
+#cal-slider rect{
     position: absolute;
-    left:-2px;
+    left:-5px;
     top: -7px;
     width: 10px;
     height: 15px;
     border-radius: 4px;
     background: #eee;
-    border: 1px solid #999;
+    border: 1px solid #d3d3d3;
 }
 
+.d3-slider-handle rect:hover {
+    border: 1px solid #999999;
+}
+
+.d3-slider-horizontal .d3-slider-handle {
+    top: -.3em;
+    margin-left: -.6em;
+}
 
 .d3-slider-axis {
     position: relative;
@@ -68,5 +76,7 @@
 }
 
 .d3-slider-vertical .d3-slider-handle {
-    margin-left: 0;    
+    left: -.25em;
+    margin-left: 0;
+    margin-bottom: -.6em;      
 }

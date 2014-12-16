@@ -26,14 +26,12 @@ d3.slider = function module() {
       tickFormat = d3.format(".0"),
       sliderLength;
 
-  var weekSelected;
-
   function slider(selection) {
     selection.each(function() {
 
       // Create scale if not defined by user
       if (!scale) {
-        scale = d3.scale.linear().domain([max, min]);
+        scale = d3.scale.linear().domain([min, max]);
       }  
 
       // Start value
@@ -143,14 +141,13 @@ d3.slider = function module() {
       function moveHandle(pos) {
 
         var newValue = stepValue(scale.invert(pos / sliderLength));
-        weekSelected = Math.round(newValue / 1.923);
 
         if (value !== newValue) {
           var oldPos = formatPercent(scale(stepValue(value))),
               newPos = formatPercent(scale(stepValue(newValue))),
               position = (orientation === "horizontal") ? "left" : "bottom";
 
-          dispatch.slide(d3.event.sourceEvent || d3.event, value = newValue, weekSelected);
+          dispatch.slide(d3.event.sourceEvent || d3.event, value = newValue);
 
           if (animate) {
             handle.transition()
@@ -256,9 +253,7 @@ d3.slider = function module() {
     if (!arguments.length) return scale;
     scale = _;
     return slider;
-  }
-
-
+  }  
 
   d3.rebind(slider, dispatch, "on");
 
