@@ -4,11 +4,13 @@ var Controller = {
 
 		Model.initAirportsData(function(flightsMatrix, delayMatrix, airports, airportData, cal) {
 
+			Model.YEAR = 2004;
+
 			// Create the Chord Viz Here
 			ChordViz.draw(flightsMatrix, delayMatrix, airports);
 
 			// Create the Calendar Here
-			Calendar.generateCalendar("2004, data/2004/2004_day_all.json");
+			Calendar.generateCalendar(Model.YEAR + ", data/"+ Model.YEAR + "/" + Model.YEAR + "_day_all.json");
 
 			// Autocomplete
 			$(document).ready(function() {
