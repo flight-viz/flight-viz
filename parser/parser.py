@@ -1,3 +1,6 @@
+## Parser for csv data in http://stat-computing.org/dataexpo/2009/
+##
+
 import csv 
 from collections import defaultdict
 import numpy as np
@@ -9,9 +12,9 @@ import pprint
 import operator
 import copy
 
-###################################################################################
-################################# UTILITY FUNCS  ##################################
-###################################################################################
+###############################################################################
+################################# UTILITY FUNCS  ##############################
+###############################################################################
 def save_to_json_file(dic, dictname, filename,year_str):
 	d= defaultdict(dict)
 	d[dictname] = dic
@@ -36,9 +39,9 @@ def pretty_print_dict(delays):
 			print " ~~~~" ,destination_dict, delays[origin_dict][destination_dict]
 
 
-####################################################################################
-############################ important functions ####################################
-####################################################################################
+###############################################################################
+############################ AGGREGATOR LOGIC #################################
+###############################################################################
 def aggregate_row_in_dict(row,origin_dict):
 	origin = row["Origin"]
 	destination = row["Dest"]
@@ -56,9 +59,9 @@ def aggregate_row_in_dict(row,origin_dict):
 		origin_dict[origin] = destination_dict
 	return origin_dict
 
-####################################################################################
-##################  DELAYS FOR ALL AIRPPORT COMBOS AGG YEARLY ######################
-####################################################################################
+###############################################################################
+############ AVERAGE DELAY per AIRPORT - Aggregated per YEAR ##################
+###############################################################################
 
 # Returns Adj List in the format { 'ORIGIN' : {'DEST': [10,10], 'DEST2':[1,2] }, 'ORIGIN2' : {..} }
 def get_aggregate_delay_and_flight_count(filename):
@@ -67,21 +70,6 @@ def get_aggregate_delay_and_flight_count(filename):
 	delays = defaultdict(list)
 	for row in reader:
 		delays = aggregate_row_in_dict(row,delays)
-		# origin = row["Origin"]
-		# destination = row["Dest"]
-		# delay = float(row["DepDelay"])
-
-		# if origin in delays: # 2th+ time we see an origin.
-		# 	if destination in delays[origin]: # 2th+ time we see a destination. 
-		# 		delays[origin][destination][0] += delay
-		# 		delays[origin][destination][1] += 1  #count of how many flights in this path	
-		# 	else:  #else, if the destination has not been within found, add  new destination normally
-		# 		delays[origin][destination] = [delay,1] #one, because this is the first time path has been found.
-		# else: #first time we see an origin and a destination.
-		# 	destination_dict = defaultdict(list)
-		# 	destination_dict[destination] = [delay,1]
-		# 	delays[origin] = destination_dict
-
 	return delays
 
 def calc_average_in_delays(delays):
@@ -151,9 +139,9 @@ def save_all_matrix(year_str,average_delays,airports):
 	f = open(year_str+'/'+filename+".json","wb")
 	json.dump(d,f)
 
-####################################################################################
-##################  DELAYS FOR ALL AIRPPORT COMBOS AGG WEEKLY ######################
-####################################################################################
+###############################################################################
+######  AVERAGE DELAY per AIRPORT - Aggregated per WEEK in a year #############
+###############################################################################
 def organize_dict_by_week(year, filename):
 	reader = csv.DictReader(open(filename))
 	delays_by_week = defaultdict(dict)
@@ -221,9 +209,9 @@ def save_week_matrix(year_str,delays_by_week,airports):
 		f = open(year_str+'/'+filename+".json","wb")
 		json.dump(d,f)
 
-####################################################################################
-################## ####### AVG DELAYS AGGREGATED BY DAY #############################
-####################################################################################
+###############################################################################
+################## AVERAGE DELAY per DAY - AGGREGATED BY DAY ##################
+###############################################################################
 def organize_dict_by_day(year, filename):
 	reader = csv.DictReader(open(filename))
 	delays_by_day = defaultdict(dict)
@@ -263,32 +251,6 @@ def calc_average_in_delays_by_day(delays_by_day):
 				delays_by_day[day][origin_dict][destination_dict][0] = float(aggregate_delay) / float(delays_by_day[day][origin_dict][destination_dict][1])
 	return delays_by_day
 
-# def convert_to_delay_matrixes_by_day(delays_by_day,airports):
-# 	delay_matrixes = defaultdict(list)
-# 	for day in delays_by_day:
-# 		delay_matrixes[day] = convert_to_delay_matrix(delays_by_day[day],airports)
-	
-# 	return delay_matrixes
-
-# def convert_to_flight_count_matrixes_by_day(delays_by_day,airports):
-# 	flight_count_matrixes = defaultdict(list)
-# 	for day in delays_by_day:
-# 		flight_count_matrixes[day] = convert_to_flight_count_matrix(delays_by_day[day],airports)
-	
-# 	return flight_count_matrixes
-
-# def save_delay_matrixes_by_day(year_str,delays_by_day,airports):
-# 	delay_matrixes_by_day = convert_to_delay_matrixes_by_day(delays_by_day,airports)
-# 	for day in delays_by_day:
-# 		filename = year_str+"_day"+str(day)+"_delay_matrix"
-# 		save_to_json_file(delay_matrixes_by_day[day],"delay_matrix",filename)
-
-# def save_flight_count_matrixes_by_day(year_str,delays_by_day, airports):
-# 	flight_count_matrixes_by_day = convert_to_flight_count_matrixes_by_day(delays_by_day,airports)
-# 	for day in delays_by_day:
-# 		filename = year_str+"_day"+str(day)+"_flight_count_matrix"
-# 		save_to_json_file(flight_count_matrixes_by_day[day],"flight_count_matrix",filename)
-
 def save_total_avg_delay_by_day(delays_by_day,year_str):
 	a = {}
 	for day in delays_by_day:
@@ -315,11 +277,10 @@ def save_total_avg_delay_by_day(delays_by_day,year_str):
 	save_to_json_file(c,"avg_delay_by_day",year_str+"_day_all",year_str )
 
 
-####################################################################################
-##################  avg delay by day by airport       ###############################
-####################################################################################
-#
-#
+###############################################################################
+######### AVERAGE DELAY per AIRPORT per DAY - AGGREGATED BY DAY  ############## 
+###############################################################################
+
 def xxx_organize_dict_by_day(row, delays_by_day,year):
 	month = int(row["Month"])
 	day = int(row["DayofMonth"])
@@ -380,9 +341,9 @@ def xxx_save_total_avg_delay_by_day(delays_by_day,airportName,year_str):
 def save_total_avg_delay_by_day_by_airport(delays_by_day_by_airport,year_str):
 	for airport in delays_by_day_by_airport:
 		xxx_save_total_avg_delay_by_day(delays_by_day_by_airport[airport],airport,year_str)
-##################################################################################
-############################### DEPRECATED STUFFF  ###############################
-###################################################################################
+###############################################################################
+############################### DEPRECATED STUFFF  ############################
+###############################################################################
 def get_relative_matrix(Matrix,airports):
 	max_val = -sys.maxint
 	for x in range(0,len(Matrix)):
@@ -455,8 +416,9 @@ def OLD_get_avg_delays_for_all_airports(filename):
 	return delays
 
 
-
-
+###############################################################################
+################################### FILTERING   ###############################
+###############################################################################
 # 100 best airports from matrix.
 def filter_to_best_airports(top_number,average_delays,airports):
 	average_delays_copy = copy.deepcopy(average_delays)
@@ -495,24 +457,12 @@ def filter_to_best_airports(top_number,average_delays,airports):
 					if average_delays[origin][destination]:
 						dest_dict[destination] =  average_delays[origin][destination]
 						new_average_delay[origin] = dest_dict 
-	# suma1 =0
-	# for i in new_average_delay:
-	# 	for x in new_average_delay[i]:
-	# 		suma1+= 1
-	# 		print new_average_delay[i][x]
 
-	# suma2 =0
-	# for u in average_delays:
-	# 	for x in average_delays[u]:
-	# 		suma2 +=1
-	# 		print average_delays[u][x]
-
-	# print suma1, suma2
-
-	# print new_average_delay
 	return {'delays':new_average_delay,'airports':top_list}
 
-###################################### MAIN ####################################################
+###############################################################################
+################################### MAIN  #####################################
+###############################################################################
 def parse(filename,year_str,top):
 	# Neeeded
 	average_delays = get_average_delays_dict(filename)
