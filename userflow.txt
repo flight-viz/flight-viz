@@ -1,0 +1,17 @@
+Should be able to:
+
+Select year
+    - desired behavior: calendar and chord both update
+    - current behavior: calendar updates but chord does not
+
+Slide around in year
+    - desired behavior: calendar slider moves, chord updates to show flights for each week
+    - current behavior: desired
+
+Select airport
+    - desired behavior: chord filters out other airports, calendar data changes to display averages for that airport
+    - current behavior: desired
+
+Slide around in year while airport is selected
+    - desired behavior: chord changes to reflect flights from that airport for each week
+    - current behavior: chord changes to reflect flights from EVERY airport for each week
