@@ -6,8 +6,6 @@ var Controller = {
 
 		Model.initAirportsData(function(flightsMatrix, delayMatrix, airports, airportData, cal,mapData) {
 
-			console.log('callback');
-
 			// Create the Chord Viz Here
 			ChordViz.draw(flightsMatrix, delayMatrix, airports);
 
