@@ -13,6 +13,7 @@
       <![endif]-->
       <link rel="stylesheet" type="text/css" href="calendar.css">
       <link rel="stylesheet" type="text/css" href="d3.slider.css">
+      <link rel="stylesheet" type="text/css" href="mapviz.css">
       <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,700' rel='stylesheet' type='text/css'>
       <!-- <link rel="stylesheet" type="text/css" href="stylesheet.css"> -->
   </head>
@@ -94,16 +95,20 @@ $ git checkout gh-pages
         <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
       </footer>
     </div>
-
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://d3js.org/queue.v1.min.js"></script>
+<script src="http://d3js.org/topojson.v1.min.js"></script>
     <script src="javascripts/scale.fix.js"></script>
     <script src="http://d3js.org/d3.v3.min.js"></script>
-    <script src="mapviz.js"></script>
     <script src="calendar.js"></script>
     <script src="d3.slider.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script src="Model.js"></script>
-    <script src="Controller.js"></script>
     <script src="ChordViz.js"></script>
+    <script src="mapviz.js"></script>
+        <script src="Model.js"></script>
+
+        <script src="Controller.js"></script>
+
 
             <script>d3.select("#cal-slider").call(d3.slider().value(50).orientation("vertical").step(2));</script>
 

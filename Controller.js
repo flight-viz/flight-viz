@@ -11,6 +11,7 @@ var Controller = {
 			// Create the Chord Viz Here
 			ChordViz.draw(flightsMatrix, delayMatrix, airports);
 			// Create the Map Here
+
 			MapViz.draw(airports, airport_data)
 			// Create the Calendar Here
 
