@@ -13,6 +13,13 @@ var Model = {
 
 	initAirportsData: function(callback) {
 
+		Model.airports = null;
+		Model.flightsMatrix = null;
+		Model.delayMatrix = null;
+		Model.cal = null;
+		Model.airportData = null;
+		Model.mapData = null;
+
 		// We Need to Load Two Files
 		// Don't Call Callback Unless They're Both In
 		var checkMultiLoad = function() {

@@ -108,3 +108,7 @@ select {
 #chord-key span:before {
    content: "\25FC";
 }
+
+rect.day {
+    cursor: pointer;
+}

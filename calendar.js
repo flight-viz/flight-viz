@@ -8,6 +8,8 @@ var Calendar = {
 
     generateCalendar: function(yeardata) {
 
+        Calendar.clearSVG();
+
         d3.select("#cal-slider").style("visibility", "visible")
 
         var yd = yeardata.split(",");
