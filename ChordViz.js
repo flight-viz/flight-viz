@@ -223,7 +223,7 @@ var ChordViz = {
 
 	mouseOverHandle: function(g, i) {
 
-		console.log(g);
+		// console.log(g);
 
 		ChordViz.tip.show(g);
 		ChordViz.currHover = i;
