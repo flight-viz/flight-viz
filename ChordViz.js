@@ -223,11 +223,14 @@ var ChordViz = {
 
 	mouseOverHandle: function(g, i) {
 
-		// console.log(g);
-
 		ChordViz.tip.show(g);
 		ChordViz.currHover = i;
 		ChordViz.transitionChords();
+
+		if (ChordViz.currSelected) {
+			d3.selectAll("#chord-detail").html(ChordViz.labels[ChordViz.currSelected]+" &#8594; "+ChordViz.labels[ChordViz.currHover]+"<br />"
+				+"Average Delay: "+Math.round(ChordViz.colorMatrix[ChordViz.currSelected][ChordViz.currHover])+" Minutes");
+		}
 
 	},
 
@@ -236,6 +239,8 @@ var ChordViz = {
 		ChordViz.tip.hide(g);
 		ChordViz.currHover = null;
 		ChordViz.transitionChords();
+
+		d3.selectAll("#chord-detail").text("")
 
 	},
 
