@@ -13,7 +13,7 @@ h1 {
 }
 
 #viz-main {
-    margin-top: 25px;
+    /*margin-top: 25px;*/
 }
 
 
@@ -75,4 +75,11 @@ select {
   background: rgba(0, 0, 0, 0.8);
   color: #fff;
   border-radius: 2px;
+}
+
+#chord-detail {
+    width:960px;
+    text-transform: uppercase;
+    text-align: center;
+    height:40px;
 }
