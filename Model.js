@@ -16,7 +16,7 @@ var Model = {
 		// Don't Call Callback Unless They're Both In
 		var checkMultiLoad = function() {
 			if (Model.airports != null && Model.flightsMatrix != null && Model.cal != null && Model.airport_data!= null )  {
-				callback.call(window, Model.flightsMatrix, Model.delayMatrix, Model.airports);
+				callback.call(window, Model.flightsMatrix, Model.delayMatrix, Model.airports, Model.airport_data);
 			}
 		}
 
