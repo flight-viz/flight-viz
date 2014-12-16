@@ -8,15 +8,15 @@ var Model = {
 	flightsMatrix: null,
 	delayMatrix: null,
 	cal: null,
-	airport_data:null,
+	airportData:null,
 
 	initAirportsData: function(callback) {
 
 		// We Need to Load Two Files
 		// Don't Call Callback Unless They're Both In
 		var checkMultiLoad = function() {
-			if (Model.airports != null && Model.flightsMatrix != null && Model.cal != null && Model.airport_data!= null )  {
-				callback.call(window, Model.flightsMatrix, Model.delayMatrix, Model.airports, Model.airport_data);
+			if (Model.airports != null && Model.flightsMatrix != null && Model.cal != null && Model.airportData!= null )  {
+				callback.call(window, Model.flightsMatrix, Model.delayMatrix, Model.airports, Model.airportData);
 			}
 		}
 
@@ -40,7 +40,7 @@ var Model = {
 
 		// Load all airport data (has airport locations) 
 		Model.loadAirportData(function(result) {
-			Model.airport_data = result;
+			Model.airportData = result;
 			checkMultiLoad();
 		});
 
@@ -67,13 +67,26 @@ var Model = {
 
 	},
 
-	getGenericAirportData: function(callback) {
+	getAirportsForAutocomplete: function(airportsRaw, airportsInUse) {
 
-
+		airports = [];
+		for (var i in airportsRaw) {
+			if (airportsInUse.indexOf(airportsRaw[i].iata) == -1) { continue; }
+			airports.push({
+				value: airportsRaw[i].iata,
+				label: airportsRaw[i].airport + " (" + airportsRaw[i].iata + ")"
+			})
+		}
+		return airports;
 
 	},
 
-	// Internal Use Functions
+	airportCodeToIndex: function(code) {
+		return Model.airports.indexOf(code);
+	},
+
+	// Internal Use Functions Below This Point
+
 	dataLoadError: function(xhr, ajaxOptions, thrownError) {
 		console.log(xhr, ajaxOptions, thrownError);
 		alert('Could not load data from file.')

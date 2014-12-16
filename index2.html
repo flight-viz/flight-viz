@@ -1,117 +1,79 @@
 <!doctype html>
 <html>
-  <head>
-      <meta charset="utf-8">
-      <meta http-equiv="X-UA-Compatible" content="chrome=1">
-      <title>Flight-viz by flight-viz</title>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="chrome=1">
+	<title>Airline On-Time Performance Visualization</title>
 
-      <link rel="stylesheet" href="stylesheets/styles.css">
-      <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-      <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-      <!--[if lt IE 9]>
-      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-      <![endif]-->
-      <link rel="stylesheet" type="text/css" href="calendar.css">
-      <link rel="stylesheet" type="text/css" href="d3.slider.css">
-      <link rel="stylesheet" type="text/css" href="mapviz.css">
-      <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,700' rel='stylesheet' type='text/css'>
-      <!-- <link rel="stylesheet" type="text/css" href="stylesheet.css"> -->
-  </head>
-  <body>
-    <div class="wrapper">
-      <header>
-        <h1>Flight-viz</h1>
-        <p>Visualization for Airline On-Time Performance</p>
-        <p class="view"><a href="https://github.com/flight-viz/flight-viz">View on GitHub 
-`
-        <small>flight-viz/flight-viz</small></a></p>
-      </header>
+	<link rel="stylesheet" href="stylesheets/styles.css">
+	<link rel="stylesheet" href="stylesheets/pygment_trac.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+	<!--[if lt IE 9]>
+	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<link rel="stylesheet" type="text/css" href="calendar.css">
+	<link rel="stylesheet" type="text/css" href="d3.slider.css">
+	<link rel="stylesheet" type="text/css" href="mapviz.css">
+	<link rel="stylesheet" type="text/css" href="jquery-ui-1.11.2.custom/jquery-ui.min.css">
+	<link href='http://fonts.googleapis.com/css?family=Roboto:400,300,700' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" type="text/css" href="stylesheet.css">
+</head>
+<body>
+	
+	<div class="wrapper">
+		<header>
+			<h1>Airline <br />On-Time<br /> Performance</h1>
+			<p>Tufts University<br />Data Visualization<br />Fall 2014</p>
+			<p class="view"><a href="https://github.com/flight-viz/flight-viz">View on GitHub</a></p>
+			<form id="airport-search">
+				<input type="text" id="airport-search-text" placeholder="Find an Airport Here" />
+			</form>
 
-    </div>
+		</header>
 
+	</div>
 
-    <div id="viz-main">
-              <form id="airport-search">
-          <input type="text" id="airport-search-text" placeholder="Find an Airport Here" />
-      </form>
+	<div id="viz-main">
 
-      <div id="chord"></div>
+		<div id="chord"></div>
 
-      <div id="map"></div>
-      
-      <div id="cal-selector">
-          <select id="year" onchange="clearSVG();generateCalendar(this.value);">
-              <option value = "2010">2010</option>
-              <option value = "2011">2011</option>
-              <option value = "2012">2012</option>
-              <option value = "2013">2013</option>
-              <option value = "2014,testcal.csv">2014</option>
-          </select>
-       <div id="calendar">
-              <div id="cal-slider">
-              </div>
-       </div>
-     </div>
-   </div>
-  <section>
+		<div id="map"></div>
 
-<h3>
-<a id="designer-templates" class="anchor" href="#designer-templates" aria-hidden="true"><span class="octicon octicon-link"></span></a>Airline On-Time Performance</h3>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum:</p>
+		<div id="cal-selector">
+			<select id="year" onchange="clearSVG();generateCalendar(this.value);">
+				<option value = "2010">2010</option>
+				<option value = "2011">2011</option>
+				<option value = "2012">2012</option>
+				<option value = "2013">2013</option>
+				<option value = "2014,testcal.csv">2014</option>
+			</select>
+			<div id="calendar">
+				<div id="cal-slider"></div>
+			</div>
+		</div>
+	</div>
 
+	<footer>
+		<p>This project was created by Andrew Stephens (<a href="https://github.com/andrewmediaprod" class="user-mention">@andrewmediaprod</a>), Jaime Sanchez (<a href="https://github.com/jsanch" class="user-mention">@jsanch</a>), and Maya Saxena (<a href="https://github.com/mayasaxena" class="user-mention">@mayasaxena</a>).
+	</footer>
 
-<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+	<script src="http://d3js.org/d3.v3.min.js"></script>
+	<script src="http://d3js.org/queue.v1.min.js"></script>
+	<script src="http://d3js.org/topojson.v1.min.js"></script>
+	<script src="javascripts/scale.fix.js"></script>
+	<script src="http://d3js.org/d3.v3.min.js"></script>
+	<script src="calendar.js"></script>
+	<script src="d3.slider.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src="jquery-ui-1.11.2.custom/jquery-ui.min.js"></script>
+	<script src="ChordViz.js"></script>
+	<script src="mapviz.js"></script>
+	<script src="Model.js"></script>
 
-<h3>
-<a id="designer-templates" class="anchor" href="#designer-templates" aria-hidden="true"><span class="octicon octicon-link"></span></a>Data</h3>
-
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
-</code></pre>
-
-
-<h3>
-<a id="rather-drive-stick" class="anchor" href="#rather-drive-stick" aria-hidden="true"><span class="octicon octicon-link"></span></a>D3 blocks</h3>
-
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad <code> Lorem Ipsum </code> minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-
-<h3>
-<a id="rather-drive-stick" class="anchor" href="#rather-drive-stick" aria-hidden="true"><span class="octicon octicon-link"></span></a>Conclusion</h3>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum:</p>
-
-<h3>
-<a id="authors-and-contributors" class="anchor" href="#authors-and-contributors" aria-hidden="true"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
-
-<p>This visualization was crafted by Andrew Stevens(<a href="https://github.com/andrewmediaprod" class="user-mention">@andrewmediaprod</a>), Jaime Sanchez(<a href="https://github.com/jsanch" class="user-mention">@jsanch</a>), and Maya Saxena(
-<a href="https://github.com/mayasaxena" class="user-mention">@mayasaxena</a>).
-
-      </section>
-      <footer>
-       
-        <p>This project was done by Andrew Stevens(<a href="https://github.com/andrewmediaprod" class="user-mention">@andrewmediaprod</a>), Jaime Sanchez(<a href="https://github.com/jsanch" class="user-mention">@jsanch</a>), and Maya Saxena(
-        <a href="https://github.com/mayasaxena" class="user-mention">@mayasaxena</a>) for a Data Visualization course at Tufts University.
-         <p>This project is maintained by <a href="https://github.com/flight-viz">flight-viz</a></p>
-      </footer>
-    </div>
-    <script src="http://d3js.org/d3.v3.min.js"></script>
-<script src="http://d3js.org/queue.v1.min.js"></script>
-<script src="http://d3js.org/topojson.v1.min.js"></script>
-    <script src="javascripts/scale.fix.js"></script>
-    <script src="http://d3js.org/d3.v3.min.js"></script>
-    <script src="calendar.js"></script>
-    <script src="d3.slider.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script src="ChordViz.js"></script>
-    <script src="mapviz.js"></script>
-        <script src="Model.js"></script>
-
-        <script src="Controller.js"></script>
+	<script src="Controller.js"></script>
 
 
-            <script>d3.select("#cal-slider").call(d3.slider().value(50).orientation("vertical").step(2));</script>
+	<script>d3.select("#cal-slider").call(d3.slider().value(50).orientation("vertical").step(2));</script>
 
-  </body>
+</body>
 </html>

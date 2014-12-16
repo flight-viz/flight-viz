@@ -1,25 +1,28 @@
 var Controller = {
 
-	chordViz: null,
-	mapViz: null,
-	calendarViz: null,
-
 	init: function() {
 
-		Model.initAirportsData(function(flightsMatrix, delayMatrix, airports, airport_data) {
+		Model.initAirportsData(function(flightsMatrix, delayMatrix, airports, airportData) {
 
 			// Create the Chord Viz Here
 			ChordViz.draw(flightsMatrix, delayMatrix, airports);
-			// Create the Map Here
 
-			MapViz.draw(airports, airport_data)
+			// Create the Map Here
+			//MapViz.draw(airports, airport_data)
+
 			// Create the Calendar Here
 
-		})
+			// Autocomplete
+			$(document).ready(function() {
+				$('#airport-search-text').autocomplete({
+					source: Model.getAirportsForAutocomplete(airportData, airports),
+					select: function(event, ui) {
+						ChordViz.activate(Model.airportCodeToIndex(ui.item.value));
+						Controller.singleAirportSelect(ui.item.value);
+					}
+				});
+			})
 
-		// Autocomplete
-		Model.getGenericAirportData(function() {
-			//$('#airport-search-text').autocomplete();
 		})
 
 	},

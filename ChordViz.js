@@ -7,8 +7,8 @@ var ChordViz = {
 
 	// Config
 	selector: "#chord",
-	ringSelectedColor: "#0000a0",
-	ringDefaultColor: "#a0a0a0",
+	ringSelectedColor: "#474747",
+	ringDefaultColor: "#1972BF",
 
 	// Interaction
 	currHover: null,
@@ -40,7 +40,7 @@ var ChordViz = {
 
 		// Init Chord Viz
 		var chord = d3.layout.chord()
-			.padding(.01)
+			.padding(.005)
 			.sortSubgroups(d3.descending)
 			.matrix(dataMatrix);
 
@@ -77,7 +77,7 @@ var ChordViz = {
 			.data(chord.groups)
 			.enter().append("path")
 			.style("fill", ChordViz.ringDefaultColor)
-			.style("stroke", function(d) { return "#202020"; })
+			// .style("stroke", function(d) { return "#202020"; })
 			.attr("d", arc)
 			.on("mouseover", ChordViz.mouseOverHandle)
 			.on("mouseout", ChordViz.mouseOutHandle)
@@ -184,6 +184,13 @@ var ChordViz = {
 
 	},
 
+	activate: function(i) {
+
+		ChordViz.currSelected = i;
+		ChordViz.transitionChords();
+
+	},
+
 	mouseOverHandle: function(g, i) {
 
 		ChordViz.currHover = i;
@@ -249,6 +256,8 @@ var ChordViz = {
 
 		ChordViz.transitionChords();
 
+		$('#airport-search-text').val('');
+
 	},
 
 	getMatrixAveragedMaxMin: function(matrix) {
@@ -296,25 +305,3 @@ var matrixCrop = function(m) {
 	}
 	return newm;
 }
-
-
-var dataMatrix = [
-  // A B C D
-  [0, 5, 10, 10], // A
-  [0, 0, 20, 10], // B
-  [25, 10, 0, 10], // C
-  [10, 30, 10, 0]  // D
-];
-
-var colorMatrix = [
-  // A B C D
-  [0,    4, -10,  12], // A
-  [-10,  0,  20,  12], // B
-  [20,   2,   0,  12], // C
-  [8,   12,  40,   0]  // D
-];
-
-var labelText = ["A", "B", "C", "D"];
-
-
-//ChordViz.draw(dataMatrix, colorMatrix, labelText);
