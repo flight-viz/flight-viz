@@ -88,3 +88,23 @@ select {
 #chord-detail strong {
     color:black;
 }
+
+#chord-key {
+    clear:left;
+    width:800px;
+    font-size: 12px;
+    text-align: center;
+}
+
+#chord-key span {
+    display: inline-block;
+    padding-left:10px;
+}
+
+#chord-key .g { color: #00a000; }
+#chord-key .y { color: #a0a000; }
+#chord-key .r { color: #a00000; }
+
+#chord-key span:before {
+   content: "\25FC";
+}
