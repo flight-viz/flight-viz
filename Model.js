@@ -17,6 +17,7 @@ var Model = {
 		var checkMultiLoad = function() {
 			if (Model.airports != null && Model.flightsMatrix != null && Model.cal != null && Model.airportData!= null )  {
 				callback.call(window, Model.flightsMatrix, Model.delayMatrix, Model.airports, Model.airportData, Model.cal);
+
 			}
 		}
 
