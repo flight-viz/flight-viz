@@ -15,13 +15,9 @@
 }
 
 
-.RdYlGn .under-zero{fill:#d9ef8b;}
-.RdYlGn .zero-five{fill:#ffffbf;}
-.RdYlGn .five-fifteen{fill:#fee08b;}
-.RdYlGn .fifteen-thirty{fill:#fdae61;}
-.RdYlGn .thirty-forty-five{fill:#f46d43;}
-.RdYlGn .forty-five-sixty{fill:#d73027;}
-.RdYlGn .over-sixty{fill:#a50026;}
+.RdYlGn .under-fifteen{fill:#a00000;}
+.RdYlGn .fifteen-thirty{fill:#a0a000;}
+.RdYlGn .over-thirty{fill:#00a000;}
 
 
 

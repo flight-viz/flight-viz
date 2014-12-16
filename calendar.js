@@ -23,8 +23,8 @@ var day = d3.time.format("%w"),
     format = d3.time.format("%Y-%m-%d");
 
 var color = d3.scale.threshold()
-    .domain([0, 5, 15, 30, 45, 60])
-    .range(["under-zero","zero-five","five-fifteen","fifteen-thirty","thirty-forty-five","forty-five-sixty","over-sixty"]);
+    .domain([15, 30])
+    .range(["under-fifteen","fifteen-thirty","over-thirty"]);
 
 var svg = d3.select("#calendar").selectAll("svg")
     .data(d3.range(+year, (+year + 1)))
