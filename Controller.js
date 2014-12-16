@@ -14,7 +14,7 @@ var Controller = {
 			Calendar.generateCalendar(Model.YEAR + ", data/"+ Model.YEAR + "/" + Model.YEAR + "_day_all.json");
 			Calendar.hideSlider();
 
-			MapViz.draw(flightsMatrix,airports,airportData,mapData);
+			// MapViz.draw(flightsMatrix,airports,airportData,mapData);
 			// Autocomplete
 			$(document).ready(function() {
 				$('#airport-search-text').autocomplete({
