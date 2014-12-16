@@ -19,8 +19,10 @@
         </header>
 
         <div id="viz-main">
-            <div id="map"></div>
+            <div id="chord"></div>
 
+            <div id="map"></div>
+            
             <div id="cal-selector">
                 <select id="year" onchange="clearSVG();generateCalendar(this.value);">
                     <option value = "2010">2010</option>
@@ -37,6 +39,7 @@
         </div>
 
         <script src="http://d3js.org/d3.v3.min.js"></script>
+        <script src="mapviz.js"></script>
         <script src="calendar.js"></script>
         <script src="d3.slider.js"></script>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
