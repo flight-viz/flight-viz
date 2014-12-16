@@ -7,12 +7,8 @@ var Controller = {
 			// Create the Chord Viz Here
 			ChordViz.draw(flightsMatrix, delayMatrix, airports);
 
-			// Create the Map Here
-			//MapViz.draw(airports, airportData);
-
-
 			// Create the Calendar Here
-			//generateCalendar(cal);
+			generateCalendar("2004, data/2004/2004_day_all.json");
 
 			// Autocomplete
 			$(document).ready(function() {
@@ -54,7 +50,6 @@ var Controller = {
 			// Update the Chord
 			ChordViz.draw(flightsMatrix, delayMatrix, Model.airports);
 
-			// Update the Map
 		})
 
 	}
