@@ -38,16 +38,17 @@
     <div id="chord"></div>
 
     <div id="cal-selector">
-      <select id="year" onchange="clearSVG();generateCalendar(this.value);">
-        <option value = "2010">2010</option>
-        <option value = "2011">2011</option>
-        <option value = "2012">2012</option>
-        <option value = "2013">2013</option>
-        <option value = "2014,testcal.csv">2014</option>
-      </select>
-      <div id="calendar">
-        <div id="cal-slider"></div>
-      </div>
+        <select id="year" onchange="clearSVG();generateCalendar(this.value);">
+            <option value = "2010">2010</option>
+            <option value = "2008, data/2008/2008_day_all.json">2008</option>
+            <option value = "2011">2011</option>
+            <option value = "2012">2012</option>
+            <option value = "2013">2013</option>
+            <option value = "2014,testcal.csv">2014 (not real data)</option>
+        </select>
+        <div id="calendar">
+            <div id="cal-slider"></div>
+        </div>
     </div>
   </div>
 
@@ -72,7 +73,7 @@
         <script src="Controller.js"></script>
 
 
-    <script>  
+    <script>
         var weekSelected;
         var thing = d3.slider().value(50).orientation("vertical").step(1.923).on("slide", function(evt, value, ws) {
             weekSelected = ws;
