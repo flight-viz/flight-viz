@@ -26,6 +26,7 @@ h1 {
     float: right;
     margin: auto;
     text-align: center;
+    margin-right: 350px;
 }
 
 select {
@@ -90,7 +91,7 @@ button {
 }
 
 #chord-detail {
-    width:800px;
+    width:950px;
     text-transform: uppercase;
     text-align: center;
     height:40px;
@@ -102,7 +103,7 @@ button {
 
 #chord-key {
     clear:left;
-    width:800px;
+    width:950px;
     font-size: 12px;
     text-align: center;
 }
