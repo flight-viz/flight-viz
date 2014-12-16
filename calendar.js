@@ -1,5 +1,5 @@
 function clearSVG() {
-  d3.select("svg").remove();
+  d3.select("#calendar svg").remove();
 }
 
 function generateCalendar(yeardata) {
