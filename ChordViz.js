@@ -17,6 +17,7 @@ var ChordViz = {
 	// D3 Components
 	colorScale: null,
 	svg: null,
+	tip: null,
 
 	draw: function(dataMatrix, colorMatrix, labels) {
 
@@ -90,6 +91,26 @@ var ChordViz = {
 			}]
 		}
 
+		// Tooltips
+		ChordViz.tip = d3.tip()
+			.attr('class', 'd3-tip')
+			.offset([0, 0])
+			.direction(function(d) {
+				var a = (d.angle != undefined) ? d.angle : (d.startAngle+d.endAngle)/2;
+				if (a < 1.57) { return "ne"; }
+				else if (a < 3.14) { return "se"; }
+				else if (a < 4.71) { return "sw"; }
+				else { return "nw"; }
+			})
+			.html(function(d) {
+				if (d.index != undefined) {
+					return "<strong>"+Model.airports[d.index]+"</strong><br />"+Model.airportData[Model.airports[d.index]].airport;
+				} else {
+					return "<strong>"+d.label+"</strong><br />"+Model.airportData[d.label].airport;
+				}
+			})
+		ChordViz.svg.call(ChordViz.tip);
+
 		// Creates Text Elements Around the Circle
 		var ticks = svg.append("g").selectAll("g")
 			.data(chord.groups)
@@ -99,7 +120,9 @@ var ChordViz = {
 			.attr("transform", function(d) {
 				return "rotate(" + (d.angle * 180 / Math.PI - 90) + ")"
 				+ "translate(" + outerRadius + ",0)";
-			});
+			})
+			.on("mouseover", ChordViz.tip.show)
+			.on("mouseout", ChordViz.tip.hide);
 
 		// Fills the Text Elements Around the Circle
 		ticks.append("text")
@@ -193,6 +216,9 @@ var ChordViz = {
 
 	mouseOverHandle: function(g, i) {
 
+		console.log(g);
+
+		ChordViz.tip.show(g);
 		ChordViz.currHover = i;
 		ChordViz.transitionChords();
 
@@ -200,6 +226,7 @@ var ChordViz = {
 
 	mouseOutHandle: function(g, i) {
 
+		ChordViz.tip.hide(g);
 		ChordViz.currHover = null;
 		ChordViz.transitionChords();
 

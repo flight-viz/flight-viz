@@ -60,6 +60,19 @@ select {
     left: 0;
 }
 
+.outer path {
+    cursor: pointer;
+}
+
 .chord path {
   fill-opacity: .67;
+}
+
+.d3-tip {
+  line-height: 1;
+  font-weight: bold;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  border-radius: 2px;
 }
