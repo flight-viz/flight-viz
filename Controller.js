@@ -10,6 +10,7 @@ var Controller = {
 			// Create the Map Here
 			//MapViz.draw(airports, airportData);
 
+
 			// Create the Calendar Here
 			//generateCalendar(cal);
 
