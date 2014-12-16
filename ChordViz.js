@@ -228,7 +228,7 @@ var ChordViz = {
 		ChordViz.transitionChords();
 
 		if (ChordViz.currSelected) {
-			d3.selectAll("#chord-detail").html(ChordViz.labels[ChordViz.currSelected]+" &#8594; "+ChordViz.labels[ChordViz.currHover]+"<br />"
+			d3.selectAll("#chord-detail").html("<strong>"+ChordViz.labels[ChordViz.currSelected]+" &#8594; "+ChordViz.labels[ChordViz.currHover]+"</strong><br />"
 				+"Average Delay: "+Math.round(ChordViz.colorMatrix[ChordViz.currSelected][ChordViz.currHover])+" Minutes");
 		}
 
@@ -296,6 +296,7 @@ var ChordViz = {
 		ChordViz.transitionChords();
 
 		$('#airport-search-text').val('');
+		d3.selectAll("#chord-detail").text("")
 
 	},
 

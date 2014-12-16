@@ -79,8 +79,12 @@ select {
 }
 
 #chord-detail {
-    width:960px;
+    width:800px;
     text-transform: uppercase;
     text-align: center;
     height:40px;
+}
+
+#chord-detail strong {
+    color:black;
 }
