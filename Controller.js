@@ -34,7 +34,7 @@ var Controller = {
 		Model.getAirportByDay(airport, function(result) {
 
 			// Update the Calendar
-			console.log(result);
+			console.log(airport);
 
 		});
 		
