@@ -85,8 +85,7 @@
     <script>
         var weekSelected;
         var thing = d3.slider().value(50).orientation("vertical").step(1.923).on("slide", function(evt, value, ws) {
-            weekSelected = ws;
-            console.log(weekSelected);
+            Controller.weekSelect(ws);
         });
         d3.select("#cal-slider").call(thing);
     </script>
