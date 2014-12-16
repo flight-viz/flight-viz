@@ -35,6 +35,7 @@ var Controller = {
 
 			// Update the Calendar
 			Calendar.clearSVG();
+			Calendar.generateCalendar(Model.YEAR, Model.YEAR +"_day_" + airport+".json");
 
 		});
 		
