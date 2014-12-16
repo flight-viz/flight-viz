@@ -91,7 +91,7 @@ button {
 }
 
 #chord-detail {
-    width:950px;
+    width:800px;
     text-transform: uppercase;
     text-align: center;
     height:40px;
@@ -103,7 +103,7 @@ button {
 
 #chord-key {
     clear:left;
-    width:950px;
+    width:800px;
     font-size: 12px;
     text-align: center;
 }

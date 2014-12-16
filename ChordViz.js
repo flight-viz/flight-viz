@@ -61,8 +61,8 @@ var ChordViz = {
 		var chord = this.chord;
 
 		// Initial Params for Image Size
-		var width = 950,
-			height = 950,
+		var width = 800,
+			height = 800,
 			innerRadius = Math.min(width, height) * .41,
 			outerRadius = innerRadius * 1.05;
 
