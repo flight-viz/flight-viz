@@ -22,9 +22,9 @@ var day = d3.time.format("%w"),
     percent = d3.format(".1%"),
     format = d3.time.format("%Y-%m-%d");
 
-var color = d3.scale.threshold()
-    .domain([15, 30])
-    .range(["under-fifteen","fifteen-thirty","over-thirty"]);
+var color = d3.scale.linear()
+      .domain([0,15,30])
+      .range(["#00c000", "#c0c000", "#c00000"]);
 
 var svg = d3.select("#calendar").selectAll("svg")
     .data(d3.range(+year, (+year + 1)))
@@ -74,7 +74,7 @@ d3.json(yearfile, function(error, json) {
   var data = json["avg_delay_by_day"];
 
   rect.filter(function(d) { return d in data; })
-      .attr("class", function(d) {return "day " + color(data[d]); })
+      .attr("style", function(d) {return "fill: " + color(data[d]); })
     .select("title")
       .text(function(d) { return d + ": " + +data[d].toFixed(2); });
 });
