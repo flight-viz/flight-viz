@@ -3,6 +3,7 @@
 
 body {
   padding:50px;
+  padding-right: 10px;
   font:13px/1.5 Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
   color:#777;
   font-weight:300;
@@ -164,7 +165,6 @@ header ul a strong {
 
 #viz-main {
   margin-left:200px;
-  margin-right: 50px;
 }
 
 section {
