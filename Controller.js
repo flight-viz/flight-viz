@@ -6,13 +6,12 @@ var Controller = {
 
 	init: function() {
 
-		Model.initAirportsData(function(flightsMatrix, delayMatrix, airports) {
+		Model.initAirportsData(function(flightsMatrix, delayMatrix, airports, airport_data) {
 
 			// Create the Chord Viz Here
 			ChordViz.draw(flightsMatrix, delayMatrix, airports);
-
 			// Create the Map Here
-			MapViz.draw(airports)
+			MapViz.draw(airports, airport_data)
 			// Create the Calendar Here
 
 		})

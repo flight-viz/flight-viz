@@ -6,9 +6,12 @@ var MapViz = {
 	// Config
 	selector: "#map",
 
-	draw: function(airports) {
-		console.log("draw")
+	draw: function(airports, airport_data) {
 		console.log(airports)
+
+		console.log(airport_data)
+
+
 	}
 
 

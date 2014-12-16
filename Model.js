@@ -8,13 +8,14 @@ var Model = {
 	flightsMatrix: null,
 	delayMatrix: null,
 	cal: null,
+	airport_data:null,
 
 	initAirportsData: function(callback) {
 
 		// We Need to Load Two Files
 		// Don't Call Callback Unless They're Both In
 		var checkMultiLoad = function() {
-			if (Model.airports != null && Model.flightsMatrix != null && Model.cal != null) {
+			if (Model.airports != null && Model.flightsMatrix != null && Model.cal != null && Model.airport_data!= null )  {
 				callback.call(window, Model.flightsMatrix, Model.delayMatrix, Model.airports);
 			}
 		}
@@ -34,6 +35,12 @@ var Model = {
 
 		Model.loadFile(['day','all'], function(result) {
 			Model.cal = result.avg_delay_by_day;
+			checkMultiLoad();
+		});
+
+		// Load all airport data (has airport locations) 
+		Model.loadAirportData(function(result) {
+			Model.airport_data = result;
 			checkMultiLoad();
 		});
 
@@ -79,7 +86,6 @@ var Model = {
 		} else {
 			fileargs = file;
 		}
-
 		$.ajax({
 			type: "GET",
 			url: Model.getAjaxURL(fileargs),
@@ -92,6 +98,17 @@ var Model = {
 
 	getAjaxURL: function(args) {
 		return this.DATADIR + this.YEAR + '/' + this.YEAR + '_' + args.join('_') + this.FILETYPE
+	},
+
+	loadAirportData: function(successCallback){
+		$.ajax({
+			type: "GET",
+			url: this.DATADIR + '/' + 'airport_data.json',
+			dataType: 'json',
+			error: Model.dataLoadError,
+			success: successCallback
+		})
+
 	}
 
 }

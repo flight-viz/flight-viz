@@ -6,7 +6,7 @@ var ChordViz = {
 	labels: null,
 
 	// Config
-	selector: "#map",
+	selector: "#chord",
 	ringSelectedColor: "#0000a0",
 	ringDefaultColor: "#a0a0a0",
 
