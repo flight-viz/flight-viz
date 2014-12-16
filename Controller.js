@@ -2,13 +2,13 @@ var Controller = {
 
 	init: function() {
 
-		Model.initAirportsData(function(flightsMatrix, delayMatrix, airports, airportData, cal) {
+		Model.initAirportsData(function(flightsMatrix, delayMatrix, airports, airportData, cal,mapData) {
 
 			// Create the Chord Viz Here
-			ChordViz.draw(flightsMatrix, delayMatrix, airports);
+			// ChordViz.draw(flightsMatrix, delayMatrix, airports);
 
 			// Create the Map Here
-			//MapViz.draw(airports, airportData);
+			MapViz.draw(flightsMatrix,airports,airportData,mapData);
 
 			// Create the Calendar Here
 			//generateCalendar(cal);
@@ -37,7 +37,7 @@ var Controller = {
 		Model.getAirportByDay(airport, function(result) {
 
 			// Update the Calendar
-			console.log(result);
+			// console.log(result);
 
 		});
 		

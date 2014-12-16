@@ -9,14 +9,15 @@ var Model = {
 	delayMatrix: null,
 	cal: null,
 	airportData:null,
+	mapData:null,
 
 	initAirportsData: function(callback) {
 
 		// We Need to Load Two Files
 		// Don't Call Callback Unless They're Both In
 		var checkMultiLoad = function() {
-			if (Model.airports != null && Model.flightsMatrix != null && Model.cal != null && Model.airportData!= null )  {
-				callback.call(window, Model.flightsMatrix, Model.delayMatrix, Model.airports, Model.airportData, Model.cal);
+			if (Model.airports != null && Model.flightsMatrix != null && Model.cal != null && Model.airportData != null && Model.mapData != null)  {
+				callback.call(window, Model.flightsMatrix, Model.delayMatrix, Model.airports, Model.airportData, Model.cal, Model.mapData);
 			}
 		}
 
@@ -41,6 +42,11 @@ var Model = {
 		// Load all airport data (has airport locations) 
 		Model.loadAirportData(function(result) {
 			Model.airportData = result;
+			checkMultiLoad();
+		});
+
+		Model.loadMapData(function(result) {
+			Model.mapData = result;
 			checkMultiLoad();
 		});
 
@@ -124,6 +130,18 @@ var Model = {
 			success: successCallback
 		})
 
+	},
+
+	loadMapData: function(successCallback){
+		$.ajax({
+			type: "GET",
+			url: this.DATADIR + '/' + 'us.json',
+			dataType: 'json',
+			error: Model.dataLoadError,
+			success: successCallback
+		})
+
 	}
+
 
 }
