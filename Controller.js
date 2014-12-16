@@ -8,7 +8,7 @@ var Controller = {
 			ChordViz.draw(flightsMatrix, delayMatrix, airports);
 
 			// Create the Calendar Here
-			generateCalendar("2004, data/2004/2004_day_all.json");
+			Calendar.generateCalendar("2004, data/2004/2004_day_all.json");
 
 			// Autocomplete
 			$(document).ready(function() {
@@ -34,7 +34,7 @@ var Controller = {
 		Model.getAirportByDay(airport, function(result) {
 
 			// Update the Calendar
-			console.log(airport);
+			Calendar.clearSVG();
 
 		});
 		
