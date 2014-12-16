@@ -26,7 +26,6 @@ h1 {
     float: right;
     margin: auto;
     text-align: center;
-    min-width: 180px;
 }
 
 select {
@@ -39,25 +38,27 @@ select {
     border-radius: 0;
 }
 
+
+
 #calendar {
     margin: auto;
-    min-width: 130px;
-    min-height: 960px;
+    min-width: 180px;
+    height: 960px;
     position: relative;
     clear:left;
     z-index: 0;
-
+    overflow: hidden;
 }
 
 
 #cal-slider {
-    height: 900px;
-    z-index: 5;
+    height: 884px;
     width: 100%;
-    height: 100%;
+    z-index: 5;
     position: absolute;
-    top: 15px;
+    top: 21px;
     left: 0;
+    overflow: visible;
 }
 
 .outer path {
