@@ -39,8 +39,6 @@
     <div id="chord"></div>
     <div id="chord-key"></div>
 
-    <div id="map"></div>
-
     <div id="cal-selector">
       <select id="year" onchange="clearSVG();generateCalendar(this.value);">
         <option value = "2010">2010</option>
@@ -59,24 +57,31 @@
     <p>This project was created by Andrew Stephens (<a href="https://github.com/andrewmediaprod" class="user-mention">@andrewmediaprod</a>), Jaime Sanchez (<a href="https://github.com/jsanch" class="user-mention">@jsanch</a>), and Maya Saxena (<a href="https://github.com/mayasaxena" class="user-mention">@mayasaxena</a>).
   </footer>
 
-  <script src="http://d3js.org/d3.v3.min.js"></script>
-  <script src="http://d3js.org/queue.v1.min.js"></script>
-  <script src="http://d3js.org/topojson.v1.min.js"></script>
-  <script src="javascripts/scale.fix.js"></script>
-  <script src="http://d3js.org/d3.v3.min.js"></script>
-  <script src="calendar.js"></script>
-  <script src="d3.slider.js"></script>
-  <script src="d3.tip.js"></script>
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-  <script src="jquery-ui-1.11.2.custom/jquery-ui.min.js"></script>
-  <script src="ChordViz.js"></script>
-  <script src="mapviz.js"></script>
-  <script src="Model.js"></script>
+        <script src="http://d3js.org/d3.v3.min.js"></script>
+        <script src="http://d3js.org/queue.v1.min.js"></script>
+        <script src="http://d3js.org/topojson.v1.min.js"></script>
+        <script src="javascripts/scale.fix.js"></script>
+        <script src="http://d3js.org/d3.v3.min.js"></script>
+        <script src="calendar.js"></script>
+        <script src="d3.slider.js"></script>
+        <script src="d3.tip.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script src="jquery-ui-1.11.2.custom/jquery-ui.min.js"></script>
+        <script src="ChordViz.js"></script>
+        <script src="mapviz.js"></script>
+        <script src="Model.js"></script>
 
-  <script src="Controller.js"></script>
+        <script src="Controller.js"></script>
 
 
-  <script>d3.select("#cal-slider").call(d3.slider().value(50).orientation("vertical").step(2));</script>
+    <script>  
+        var weekSelected;
+        var thing = d3.slider().value(50).orientation("vertical").step(1.923).on("slide", function(evt, value, ws) {
+            weekSelected = ws;
+            console.log(weekSelected);
+        });
+        d3.select("#cal-slider").call(thing);
+    </script>
 
 </body>
 </html>
