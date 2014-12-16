@@ -16,15 +16,23 @@ var ChordViz = {
 
 	// D3 Components
 	colorScale: null,
+	chord: null,
 	svg: null,
 	tip: null,
 
 	draw: function(dataMatrix, colorMatrix, labels) {
 
+		// Destroy The Old One
+		d3.select(this.selector).selectAll("svg").remove();
+		this.svg = null;
+
 		// Save for Later
 		this.dataMatrix = dataMatrix;
 		this.colorMatrix = colorMatrix;
 		this.labels = labels;
+
+		currHover = null;
+		currSelected = null;
 
 		// Experimental: Removes Weight from the Chord
 		/*var simpleMatrix = [];
@@ -40,10 +48,11 @@ var ChordViz = {
 		}*/
 
 		// Init Chord Viz
-		var chord = d3.layout.chord()
+		this.chord = d3.layout.chord()
 			.padding(.005)
 			.sortSubgroups(d3.descending)
 			.matrix(dataMatrix);
+		var chord = this.chord;
 
 		// Initial Params for Image Size
 		var width = 960,
@@ -57,11 +66,9 @@ var ChordViz = {
 			.outerRadius(outerRadius);
 
 		// Sets Color of the Chords Going Across Circle
-		/*var mMinMax = ChordViz.getMatrixAveragedMaxMin(colorMatrix);
-		console.log(mMinMax);*/
 		this.colorScale = d3.scale.linear()
-			.domain([0,10,20])
-			.range(["#00c000", "#c0c0c0", "#c00000"]);
+			.domain([0,15,30])
+			.range(["#00c000", "#c0c000", "#c00000"]);
 
 		// Build the Image Container
 		var svg = d3.select(this.selector).append("svg")
@@ -140,7 +147,7 @@ var ChordViz = {
 			.enter().append("path")
 			.attr("d", d3.svg.chord().radius(innerRadius))
 			.style("fill", function(d) {
-				var avg = (colorMatrix[d.source.index][d.target.index] + colorMatrix[d.target.index][d.source.index])/2;
+				var avg = (ChordViz.colorMatrix[d.source.index][d.target.index] + ChordViz.colorMatrix[d.target.index][d.source.index])/2;
 				return ChordViz.colorScale(avg);
 			})
 			.style("opacity", 1);

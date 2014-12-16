@@ -4,7 +4,7 @@ function clearSVG() {
 
 function generateCalendar(yeardata) {
 
-d3.select("#cal-slider").style("visibility", "visible")
+d3.select("#cal-slider").style("visibility", "visible");
 
 var yd = yeardata.split(",");
 var year = yd[0];

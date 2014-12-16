@@ -16,7 +16,7 @@ var Model = {
 		// Don't Call Callback Unless They're Both In
 		var checkMultiLoad = function() {
 			if (Model.airports != null && Model.flightsMatrix != null && Model.cal != null && Model.airportData!= null )  {
-				callback.call(window, Model.flightsMatrix, Model.delayMatrix, Model.airports, Model.airportData);
+				callback.call(window, Model.flightsMatrix, Model.delayMatrix, Model.airports, Model.airportData, Model.cal);
 			}
 		}
 
@@ -49,9 +49,11 @@ var Model = {
 	getWeekAirportMatrix: function(weekNum, callback) {
 
 		if (weekNum != null) {
-			Model.loadFile(["week"+weekNum, "matrix"], callback);	
+			Model.loadFile(["week"+weekNum, "matrix"], function(result) {
+				callback.call(window, result.flight_count_matrix, result.delay_matrix);
+			});	
 		} else {
-			callback.call(window, Model.flightsMatrix, Model.delayMatrix, Model.airports);
+			callback.call(window, Model.flightsMatrix, Model.delayMatrix);
 		}
 
 		

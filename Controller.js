@@ -2,15 +2,16 @@ var Controller = {
 
 	init: function() {
 
-		Model.initAirportsData(function(flightsMatrix, delayMatrix, airports, airportData) {
+		Model.initAirportsData(function(flightsMatrix, delayMatrix, airports, airportData, cal) {
 
 			// Create the Chord Viz Here
 			ChordViz.draw(flightsMatrix, delayMatrix, airports);
 
 			// Create the Map Here
-			//MapViz.draw(airports, airport_data)
+			//MapViz.draw(airports, airportData);
 
 			// Create the Calendar Here
+			//generateCalendar(cal);
 
 			// Autocomplete
 			$(document).ready(function() {
@@ -35,9 +36,8 @@ var Controller = {
 
 		Model.getAirportByDay(airport, function(result) {
 
-			console.log(result);
-
 			// Update the Calendar
+			console.log(result);
 
 		});
 		
@@ -49,9 +49,10 @@ var Controller = {
 
 	weekSelect: function(weekNum) {
 
-		Model.getWeekAirportMatrix(weekNum, function(flightsMatrix, delayMatrix, airports) {
+		Model.getWeekAirportMatrix(weekNum, function(flightsMatrix, delayMatrix) {
 			// Update the Chord
-			ChordViz.draw(flightsMatrix, delayMatrix, airports);
+			ChordViz.draw(flightsMatrix, delayMatrix, Model.airports);
+
 			// Update the Map
 		})
 
