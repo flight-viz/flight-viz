@@ -1,6 +1,6 @@
 var Model = {
 
-	YEAR: 2008,
+	YEAR: 2004,
 	DATADIR: 'data/',
 	FILETYPE: '.json',
 

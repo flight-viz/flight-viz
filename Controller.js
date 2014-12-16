@@ -6,8 +6,6 @@ var Controller = {
 
 		Model.initAirportsData(function(flightsMatrix, delayMatrix, airports, airportData, cal,mapData) {
 
-			Model.YEAR = 2004;
-
 			// Create the Chord Viz Here
 			ChordViz.draw(flightsMatrix, delayMatrix, airports);
 
@@ -61,6 +59,16 @@ var Controller = {
 			ChordViz.draw(flightsMatrix, delayMatrix, Model.airports, Controller.liveAirportCode);
 
 		})
+
+	},
+
+	changeYear: function(yearStr) {
+
+		var yd = yearStr.split(",");
+        var year = yd[0];
+
+		Model.YEAR = year;
+		Controller.init();
 
 	}
 
