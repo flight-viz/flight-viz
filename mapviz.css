@@ -23,7 +23,7 @@
 }
 
 .airports circle {
-  fill: steelblue;
+  fill: 'steelblue';
   stroke: #fff;
   pointer-events: none;
 }
