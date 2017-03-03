@@ -26,7 +26,7 @@ h1 {
     float: right;
     margin: auto;
     text-align: center;
-    margin-right: 350px;
+    margin-right: 50px;
 }
 
 select {
@@ -48,14 +48,14 @@ button {
     margin-left: 5px;
     margin-top: 10px;
     height: 25px;
- 
+
 }
 
 
 #calendar {
     margin: auto;
     min-width: 180px;
-    height: 960px;
+    height: 800px;
     position: relative;
     clear:left;
     z-index: 0;
@@ -91,7 +91,7 @@ button {
 }
 
 #chord-detail {
-    width:800px;
+    width:600px;
     text-transform: uppercase;
     text-align: center;
     height:40px;
@@ -103,7 +103,7 @@ button {
 
 #chord-key {
     clear:left;
-    width:800px;
+    width:600px;
     font-size: 12px;
     text-align: center;
 }

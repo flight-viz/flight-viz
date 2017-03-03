@@ -28,7 +28,7 @@ var Calendar = {
 
         var width = 130,
             height = 960,
-            cellSize = 17,
+            cellSize = 10,
             cellHorizontalOffset = 5
             cellVerticalOffset = 10;
 
@@ -86,13 +86,13 @@ var Calendar = {
               d1 = +day(t1), w1 = +week(t1);
 
           return "M" + d0 * cellSize + "," + w0 * cellSize +
-            "H" + 7 * cellSize + 
-            "V" + w1 * cellSize + 
-            "H" + (d1 + 1) * cellSize + 
-            "V" + (w1 + 1) * cellSize + 
-            "H" + 0 +  
+            "H" + 7 * cellSize +
+            "V" + w1 * cellSize +
+            "H" + (d1 + 1) * cellSize +
+            "V" + (w1 + 1) * cellSize +
+            "H" + 0 +
             "V" + (w0 + 1) * cellSize +
-            "H" + d0 * cellSize + 
+            "H" + d0 * cellSize +
             "Z";
         }
 

@@ -61,8 +61,8 @@ var ChordViz = {
 		var chord = this.chord;
 
 		// Initial Params for Image Size
-		var width = 800,
-			height = 800,
+		var width = 600,
+			height = 600,
 			innerRadius = Math.min(width, height) * .41,
 			outerRadius = innerRadius * 1.05;
 
@@ -167,14 +167,14 @@ var ChordViz = {
 		// Change Color of Outer Ring
 		ChordViz.svg.selectAll(".outer path")
 			.transition()
-			.style("fill", function(d) { 
+			.style("fill", function(d) {
 				return ChordViz.isItemActive(d.index) ? ChordViz.ringSelectedColor : ChordViz.ringDefaultColor
 			});
 
 		// Change Color and Opacity Based on Context
 		ChordViz.svg.selectAll(".chord path")
 			.transition()
-			.style("fill", function(d) { 
+			.style("fill", function(d) {
 
 				var c;
 				var c1 = ChordViz.colorMatrix[d.source.index][d.target.index];
@@ -265,7 +265,7 @@ var ChordViz = {
 		// i is -1 if Hover Out
 
 		var i = ChordViz.currHover;
-			
+
 		if (ChordViz.currSelected != null) {
 
 			var c = ChordViz.currSelected;
